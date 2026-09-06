@@ -13,6 +13,7 @@ import DryWellCalibrator from './components/DryWellCalibrator'
 import ResistanceBridge from './components/ResistanceBridge'
 import CalibrationProbesAndCables from './components/CalibrationProbesAndCables'
 import FixedPointFurnacesSuite from './components/FixedPointFurnacesSuite'
+import RadiationPhysicsBoard from './components/RadiationPhysicsBoard'
 import LabRoom from './components/LabRoom'
 import { resolvePlayerPosition, isPositionValid } from './utils/collision'
 
@@ -156,6 +157,13 @@ function LabScene({
 
   return (
     <group>
+      {/* Educational Radiation Physics & Planck Law Board on the Wall behind Table */}
+      <Suspense fallback={null}>
+        <SafeComponent name="RadiationPhysicsBoard">
+          <RadiationPhysicsBoard position={[0, 2.45, -4.82]} />
+        </SafeComponent>
+      </Suspense>
+
       {/* Black Body Source 1 (MK1600: 500°C to 1600°C - Left side of main table) */}
       <Suspense fallback={null}>
         <SafeComponent name="BlackBodySource1">
