@@ -1,0 +1,41 @@
+{
+  "name": "thermolab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ThermoLab - WebXR Sıcaklık & Nem Metroloji Laboratuvarı (ITS-90 Sabit Noktalar, ZHL_AKBLT İklim Kabini, KEC Cihazları)",
+  "author": "mchtkrkmz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mchtkrkmz/thermolab.git"
+  },
+  "homepage": "https://mchtkrkmz.github.io/thermolab/",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "@react-three/rapier": "^2.2.0",
+    "@react-three/xr": "^6.6.30",
+    "@types/three": "^0.185.4",
+    "lucide-react": "^1.41.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "recharts": "^3.10.1",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "@vitejs/plugin-react": "^6.1.0",
+    "oxlint": "^1.79.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.2"
+  }
+}
