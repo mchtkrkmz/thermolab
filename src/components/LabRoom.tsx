@@ -1,28 +1,95 @@
-
-
+import { useState, useRef } from 'react'
 import { TeleportTarget } from '@react-three/xr'
-import type * as THREE from 'three'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
+import type { ThreeEvent } from '@react-three/fiber'
+import { isPositionValid } from '../utils/collision'
 
 interface LabRoomProps {
   onTeleport?: (point: THREE.Vector3) => void
 }
 
 export default function LabRoom({ onTeleport }: LabRoomProps = {}) {
-  // Colors based on the provided image
+  // Colors based on laboratory metrology environment
   const wallColor = "#e5e1c8" // Warm beige / cream
   const floorColor = "#95928d" // Warm matte grey / linoleum
   const ceilingColor = "#f0f0f0"
   const tableColor = "#b0b0b0"
 
+  const [hoverPoint, setHoverPoint] = useState<THREE.Vector3 | null>(null)
+  const ringRef = useRef<THREE.Group>(null)
+
+  // Animated pulse for the teleport landing ring
+  useFrame((state) => {
+    if (ringRef.current) {
+      const t = state.clock.getElapsedTime()
+      const scale = 1.0 + 0.08 * Math.sin(t * 5.0)
+      ringRef.current.scale.set(scale, scale, 1.0)
+    }
+  })
+
+  const isValidHover = hoverPoint ? isPositionValid(hoverPoint.x, hoverPoint.z, 0.35) : false
+
   return (
     <group>
-      {/* Floor with WebXR TeleportTarget */}
+      {/* Floor with WebXR TeleportTarget and direct ray/click teleport */}
       <TeleportTarget onTeleport={onTeleport}>
-        <mesh position={[1.1, -0.1, 0]} receiveShadow>
+        <mesh 
+          position={[1.1, -0.1, 0]} 
+          receiveShadow
+          onClick={(e: ThreeEvent<MouseEvent>) => {
+            e.stopPropagation()
+            if (onTeleport && isPositionValid(e.point.x, e.point.z, 0.35)) {
+              onTeleport(e.point)
+            }
+          }}
+          onPointerMove={(e: ThreeEvent<PointerEvent>) => {
+            e.stopPropagation()
+            setHoverPoint(e.point)
+          }}
+          onPointerOut={() => {
+            setHoverPoint(null)
+          }}
+        >
           <boxGeometry args={[12.2, 0.2, 10]} />
           <meshStandardMaterial color={floorColor} roughness={0.7} metalness={0.1} />
         </mesh>
       </TeleportTarget>
+
+      {/* Holographic Teleport Landing Marker (Meta Quest 3 & WebXR Floor Reticle) */}
+      {hoverPoint && (
+        <group 
+          ref={ringRef}
+          position={[hoverPoint.x, 0.012, hoverPoint.z]} 
+          rotation={[-Math.PI / 2, 0, 0]}
+        >
+          {/* Dış Halka */}
+          <mesh>
+            <ringGeometry args={[0.26, 0.32, 36]} />
+            <meshBasicMaterial 
+              color={isValidHover ? "#0284c7" : "#ef4444"} 
+              transparent 
+              opacity={0.85} 
+              side={THREE.DoubleSide} 
+            />
+          </mesh>
+          {/* İç Çember */}
+          <mesh>
+            <circleGeometry args={[0.08, 24]} />
+            <meshBasicMaterial 
+              color={isValidHover ? "#38bdf8" : "#f87171"} 
+              transparent 
+              opacity={0.9} 
+              side={THREE.DoubleSide} 
+            />
+          </mesh>
+          {/* İleri Yön Oku */}
+          <mesh position={[0, 0.20, 0.001]}>
+            <coneGeometry args={[0.05, 0.10, 16]} />
+            <meshBasicMaterial color={isValidHover ? "#38bdf8" : "#f87171"} />
+          </mesh>
+        </group>
+      )}
 
       {/* Walls */}
       <mesh position={[1.1, 2.4, -5]} receiveShadow>

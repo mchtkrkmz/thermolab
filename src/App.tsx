@@ -3,7 +3,7 @@ import { OrbitControls } from '@react-three/drei'
 import { Suspense, useState, useEffect, useRef, Component } from 'react'
 import type { ErrorInfo, ReactNode } from 'react'
 import { createXRStore, XR, XROrigin, useXRControllerLocomotion, useXR } from '@react-three/xr'
-import type * as THREE from 'three'
+import * as THREE from 'three'
 import BlackBodySource from './components/BlackBodySource'
 import ClimateCabinet from './components/ClimateCabinet'
 import Dashboard from './components/Dashboard'
@@ -20,22 +20,41 @@ import type { MeasurementRecord } from './components/MissionBoard'
 import LabRoom from './components/LabRoom'
 import { resolvePlayerPosition, isPositionValid } from './utils/collision'
 
-// Initialize WebXR store with teleport pointer enabled on controllers
+// Initialize WebXR store with teleport pointer enabled on controllers & hands (Meta Quest 3)
 export const xrStore = createXRStore({
   controller: {
     teleportPointer: true,
   },
+  hand: {
+    teleportPointer: true,
+  },
 })
 
-function Player({ originRef }: { originRef: React.RefObject<THREE.Group | null> }) {
+function Player({ 
+  originRef, 
+  teleportTarget, 
+  setTeleportTarget 
+}: { 
+  originRef: React.RefObject<THREE.Group | null>
+  teleportTarget: { x: number; z: number } | null
+  setTeleportTarget: (p: { x: number; z: number } | null) => void 
+}) {
   const prevSafePos = useRef<{ x: number; z: number }>({ x: 0, z: 1.2 })
 
   // Enables Quest 3 thumbstick movement (left stick) and snap rotation 45 deg (right stick)
   useXRControllerLocomotion(originRef, { speed: 2.2 }, { type: 'snap', degrees: 45 }, 'left')
 
-  // Real-time obstacle collision resolution: prevents walking through tables, equipment, and walls
+  // Real-time obstacle collision resolution & instant teleport execution
   useFrame(() => {
     if (originRef.current) {
+      if (teleportTarget) {
+        originRef.current.position.x = teleportTarget.x
+        originRef.current.position.z = teleportTarget.z
+        prevSafePos.current = { x: teleportTarget.x, z: teleportTarget.z }
+        setTeleportTarget(null)
+        return
+      }
+
       const curX = originRef.current.position.x
       const curZ = originRef.current.position.z
 
@@ -434,6 +453,7 @@ function App() {
   const [bb2TargetTemp, setBb2TargetTemp] = useState(50)
   const [bb2CurrentTemp, setBb2CurrentTemp] = useState(50)
   const [isInVR, setIsInVR] = useState(false)
+  const [teleportTarget, setTeleportTarget] = useState<{ x: number; z: number } | null>(null)
   const playerOriginRef = useRef<THREE.Group>(null)
 
   useEffect(() => {
@@ -444,12 +464,10 @@ function App() {
 
   const handleTeleport = (point: THREE.Vector3) => {
     // Only allow teleporting if landing spot is safe and not inside an obstacle or wall
-    if (!isPositionValid(point.x, point.z, 0.4)) {
+    if (!isPositionValid(point.x, point.z, 0.35)) {
       return
     }
-    if (playerOriginRef.current) {
-      playerOriginRef.current.position.set(point.x, 0, point.z)
-    }
+    setTeleportTarget({ x: point.x, z: point.z })
   }
 
   return (
@@ -470,7 +488,11 @@ function App() {
           <pointLight position={[3, 4, -3]} intensity={1} />
 
           {/* Player feet origin & Locomotion in VR */}
-          <Player originRef={playerOriginRef} />
+          <Player 
+            originRef={playerOriginRef} 
+            teleportTarget={teleportTarget} 
+            setTeleportTarget={setTeleportTarget} 
+          />
 
           {/* Lab Room – walls, floor, tables with TeleportTarget */}
           <LabRoom onTeleport={handleTeleport} />
@@ -494,9 +516,47 @@ function App() {
           <h1>Laboratuvar WebXR</h1>
           <p>
             {isInVR
-              ? "🥽 VR Modu Aktif (Meta Quest 3). Kontrolcülerinizle ışınlanabilir (ışın çizgisi zemine) veya sol analog çubukla gezinebilirsiniz."
-              : "Masaüstünde fareyle gezinebilir veya Meta Quest 3 başlığınızdan doğrudan VR moduna geçebilirsiniz."}
+              ? "🥽 VR Modu Aktif (Meta Quest 3). Sol analog çubukla yürüyebilir, sağ analog çubukla 45° dönebilir, kontrolcü/el ile zemine işaret edip tetik/kıstırma yaparak holografik çembere ışınlanabilirsiniz."
+              : "Masaüstünde fareyle gezinebilir, zemine tıklayarak veya istasyon butonlarını kullanarak istediğiniz cihazın yanına anında ışınlanabilirsiniz."}
           </p>
+
+          {/* Hızlı Laboratuvar Işınlanma İstasyonları */}
+          <div style={{ marginTop: '8px', marginBottom: '8px', paddingTop: '6px', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+            <div style={{ fontSize: '11px', color: '#38bdf8', marginBottom: '5px', fontWeight: 'bold' }}>
+              ⚡ Hızlı Işınlanma İstasyonları:
+            </div>
+            <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+              <button 
+                className="secondary" 
+                style={{ fontSize: '11px', padding: '4px 8px' }}
+                onClick={() => handleTeleport(new THREE.Vector3(0, 0, 1.2))}
+              >
+                🎯 Merkez Masa
+              </button>
+              <button 
+                className="secondary" 
+                style={{ fontSize: '11px', padding: '4px 8px' }}
+                onClick={() => handleTeleport(new THREE.Vector3(-2.1, 0, 0.2))}
+              >
+                ❄️ İklim Kabini
+              </button>
+              <button 
+                className="secondary" 
+                style={{ fontSize: '11px', padding: '4px 8px' }}
+                onClick={() => handleTeleport(new THREE.Vector3(4.0, 0, 1.8))}
+              >
+                🔥 Sabit Noktalar
+              </button>
+              <button 
+                className="secondary" 
+                style={{ fontSize: '11px', padding: '4px 8px' }}
+                onClick={() => handleTeleport(new THREE.Vector3(5.5, 0, 2.4))}
+              >
+                ⚡ Direnç Köprüsü
+              </button>
+            </div>
+          </div>
+
           <div className="button-row">
             {!isInVR ? (
               <button

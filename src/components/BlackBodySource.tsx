@@ -298,7 +298,7 @@ export default function BlackBodySource({
           </Text>
           {/* SV Value (Target Temp - Green LED) */}
           <Text
-            position={[0.055, 0.009, 0.003]}
+            position={[0.055, 0.008, 0.003]}
             fontSize={0.015}
             color="#22c55e"
             anchorX="center"
