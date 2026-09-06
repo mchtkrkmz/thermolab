@@ -169,15 +169,20 @@ function LabScene({
         </SafeComponent>
       </Suspense>
 
-      {/* Radiation Thermometer 1 (LAND CYCLOPS 100L - Precision Red) */}
+      {/* Planck Pyrometer 1: LAND CYCLOPS 100L (NIR - 0.9 µm - High Temp: 550°C to 3000°C - Crimson Red) */}
       <Suspense fallback={null}>
         <SafeComponent name="RadiationThermometer1">
           <RadiationThermometer
-            position={[-0.15, 1.04, -0.4]}
-            rotation={[0, 0.15, 0]}
-            color="#d32f2f"
+            position={[-0.30, 1.04, -0.42]}
+            rotation={[0, 0.18, 0]}
+            color="#dc2626"
             ambientTemp={ambientTemp}
             modelName="LAND CYCLOPS 100L"
+            wavelength={0.9}
+            wavelengthLabel="λ = 0.90 µm (NIR)"
+            minTemp={550}
+            maxTemp={3000}
+            detectorType="Si Fotodiyot"
             onSaveMeasurement={(ref, meas, name) => {
               console.log('Saved', ref, meas, name)
               setMeasurements(prev => [...prev, { ref, measured: meas, device: name }])
@@ -186,15 +191,64 @@ function LabScene({
         </SafeComponent>
       </Suspense>
 
-      {/* Radiation Thermometer 2 (LAND CYCLOPS 160B - Precision Blue) */}
+      {/* Planck Pyrometer 2: LAND CYCLOPS 160B (SWIR - 1.6 µm - Mid-High Temp: 200°C to 1400°C - Cyan Blue) */}
       <Suspense fallback={null}>
         <SafeComponent name="RadiationThermometer2">
           <RadiationThermometer
-            position={[0.35, 1.04, -0.4]}
-            rotation={[0, -0.15, 0]}
+            position={[-0.10, 1.04, -0.42]}
+            rotation={[0, 0.06, 0]}
             color="#0284c7"
             ambientTemp={ambientTemp}
             modelName="LAND CYCLOPS 160B"
+            wavelength={1.6}
+            wavelengthLabel="λ = 1.60 µm (SWIR)"
+            minTemp={200}
+            maxTemp={1400}
+            detectorType="InGaAs"
+            onSaveMeasurement={(ref, meas, name) => {
+              console.log('Saved', ref, meas, name)
+              setMeasurements(prev => [...prev, { ref, measured: meas, device: name }])
+            }}
+          />
+        </SafeComponent>
+      </Suspense>
+
+      {/* Planck Pyrometer 3: HEITRONICS KT19 (MWIR - 3.9 µm - Mid Temp: 80°C to 1000°C - Amber Orange) */}
+      <Suspense fallback={null}>
+        <SafeComponent name="RadiationThermometer3">
+          <RadiationThermometer
+            position={[0.12, 1.04, -0.42]}
+            rotation={[0, -0.06, 0]}
+            color="#ea580c"
+            ambientTemp={ambientTemp}
+            modelName="HEITRONICS KT19"
+            wavelength={3.9}
+            wavelengthLabel="λ = 3.90 µm (MWIR)"
+            minTemp={80}
+            maxTemp={1000}
+            detectorType="PbS / Gaz Bandı"
+            onSaveMeasurement={(ref, meas, name) => {
+              console.log('Saved', ref, meas, name)
+              setMeasurements(prev => [...prev, { ref, measured: meas, device: name }])
+            }}
+          />
+        </SafeComponent>
+      </Suspense>
+
+      {/* Planck Pyrometer 4: MIKRON M90 (LWIR - 10.0 µm - Ambient & Low Temp: -50°C to 500°C - Emerald Green) */}
+      <Suspense fallback={null}>
+        <SafeComponent name="RadiationThermometer4">
+          <RadiationThermometer
+            position={[0.32, 1.04, -0.42]}
+            rotation={[0, -0.18, 0]}
+            color="#059669"
+            ambientTemp={ambientTemp}
+            modelName="MIKRON M90 LWIR"
+            wavelength={10.0}
+            wavelengthLabel="λ = 8-14 µm (LWIR)"
+            minTemp={-50}
+            maxTemp={500}
+            detectorType="Termopil"
             onSaveMeasurement={(ref, meas, name) => {
               console.log('Saved', ref, meas, name)
               setMeasurements(prev => [...prev, { ref, measured: meas, device: name }])
