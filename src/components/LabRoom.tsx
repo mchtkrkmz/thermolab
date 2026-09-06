@@ -112,8 +112,8 @@ export default function LabRoom({ onTeleport }: LabRoomProps = {}) {
         <meshStandardMaterial color={ceilingColor} roughness={1} />
       </mesh>
 
-      {/* Center Table */}
-      <mesh position={[0, 0.45, -0.5]} receiveShadow castShadow>
+      {/* Center Table (Moved towards back wall) */}
+      <mesh position={[0, 0.45, -3.8]} receiveShadow castShadow>
         <boxGeometry args={[4, 0.9, 1.2]} />
         <meshStandardMaterial color={tableColor} metalness={0.7} roughness={0.3} />
       </mesh>

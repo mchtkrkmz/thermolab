@@ -6,8 +6,6 @@ import { createXRStore, XR, XROrigin, useXRControllerLocomotion, useXR } from '@
 import * as THREE from 'three'
 import BlackBodySource from './components/BlackBodySource'
 import ClimateCabinet from './components/ClimateCabinet'
-import Dashboard from './components/Dashboard'
-import DashboardLeft from './components/DashboardLeft'
 import RadiationThermometer from './components/RadiationThermometer'
 import DewPointMirror from './components/DewPointMirror'
 import IRCalibrator from './components/IRCalibrator'
@@ -15,10 +13,14 @@ import DryWellCalibrator from './components/DryWellCalibrator'
 import ResistanceBridge from './components/ResistanceBridge'
 import CalibrationProbesAndCables from './components/CalibrationProbesAndCables'
 import FixedPointFurnacesSuite from './components/FixedPointFurnacesSuite'
-import MissionBoard from './components/MissionBoard'
-import type { MeasurementRecord } from './components/MissionBoard'
 import LabRoom from './components/LabRoom'
 import { resolvePlayerPosition, isPositionValid } from './utils/collision'
+
+export interface MeasurementRecord {
+  ref: number
+  measured: number
+  device: string
+}
 
 // Initialize WebXR store with teleport pointer enabled on controllers & hands (Meta Quest 3)
 export const xrStore = createXRStore({
@@ -39,7 +41,7 @@ function Player({
   teleportTarget: { x: number; z: number } | null
   setTeleportTarget: (p: { x: number; z: number } | null) => void 
 }) {
-  const prevSafePos = useRef<{ x: number; z: number }>({ x: 0, z: 1.2 })
+  const prevSafePos = useRef<{ x: number; z: number }>({ x: 0, z: -2.0 })
 
   // Enables Quest 3 thumbstick movement (left stick) and snap rotation 45 deg (right stick)
   useXRControllerLocomotion(originRef, { speed: 2.2 }, { type: 'snap', degrees: 45 }, 'left')
@@ -71,17 +73,17 @@ function Player({
     }
   })
 
-  return <XROrigin ref={originRef} position={[0, 0, 1.2]} />
+  return <XROrigin ref={originRef} position={[0, 0, -2.0]} />
 }
 
 function ControlsHandler() {
   const isPresenting = useXR((s) => s.session != null)
   return (
     <OrbitControls
-      target={[0, 1.4, -0.6]}
+      target={[0, 1.25, -3.8]}
       maxPolarAngle={Math.PI / 2 - 0.05}
-      minDistance={1.2}
-      maxDistance={6.0}
+      minDistance={1.0}
+      maxDistance={8.0}
       enabled={!isPresenting}
     />
   )
@@ -151,8 +153,6 @@ function LabScene({
   const [cabCurrentTemp, setCabCurrentTemp] = useState(25)
   const [cabTargetHum, setCabTargetHum] = useState(40)
   const [cabCurrentHum, setCabCurrentHum] = useState(40)
-  const [missionActive, setMissionActive] = useState(false)
-  const [measurements, setMeasurements] = useState<MeasurementRecord[]>([])
 
   return (
     <group>
@@ -160,7 +160,7 @@ function LabScene({
       <Suspense fallback={null}>
         <SafeComponent name="BlackBodySource1">
           <BlackBodySource
-            position={[-1.4, 0.90, -0.5]}
+            position={[-1.4, 0.90, -3.8]}
             targetTemp={bb1TargetTemp}
             setTargetTemp={setBb1TargetTemp}
             currentTemp={bb1CurrentTemp}
@@ -176,7 +176,7 @@ function LabScene({
       <Suspense fallback={null}>
         <SafeComponent name="BlackBodySource2">
           <BlackBodySource
-            position={[-0.7, 0.90, -0.5]}
+            position={[-0.7, 0.90, -3.8]}
             targetTemp={bb2TargetTemp}
             setTargetTemp={setBb2TargetTemp}
             currentTemp={bb2CurrentTemp}
@@ -192,7 +192,7 @@ function LabScene({
       <Suspense fallback={null}>
         <SafeComponent name="RadiationThermometer1">
           <RadiationThermometer
-            position={[-0.30, 1.04, -0.42]}
+            position={[-0.30, 1.04, -3.72]}
             rotation={[0, 0.18, 0]}
             color="#dc2626"
             ambientTemp={ambientTemp}
@@ -203,8 +203,7 @@ function LabScene({
             maxTemp={3000}
             detectorType="Si Fotodiyot"
             onSaveMeasurement={(ref, meas, name) => {
-              console.log('Saved', ref, meas, name)
-              setMeasurements(prev => [...prev, { ref, measured: meas, device: name }])
+              console.log('Saved measurement:', ref, meas, name)
             }}
           />
         </SafeComponent>
@@ -214,7 +213,7 @@ function LabScene({
       <Suspense fallback={null}>
         <SafeComponent name="RadiationThermometer2">
           <RadiationThermometer
-            position={[-0.10, 1.04, -0.42]}
+            position={[-0.10, 1.04, -3.72]}
             rotation={[0, 0.06, 0]}
             color="#0284c7"
             ambientTemp={ambientTemp}
@@ -225,8 +224,7 @@ function LabScene({
             maxTemp={1400}
             detectorType="InGaAs"
             onSaveMeasurement={(ref, meas, name) => {
-              console.log('Saved', ref, meas, name)
-              setMeasurements(prev => [...prev, { ref, measured: meas, device: name }])
+              console.log('Saved measurement:', ref, meas, name)
             }}
           />
         </SafeComponent>
@@ -236,7 +234,7 @@ function LabScene({
       <Suspense fallback={null}>
         <SafeComponent name="RadiationThermometer3">
           <RadiationThermometer
-            position={[0.12, 1.04, -0.42]}
+            position={[0.12, 1.04, -3.72]}
             rotation={[0, -0.06, 0]}
             color="#ea580c"
             ambientTemp={ambientTemp}
@@ -247,8 +245,7 @@ function LabScene({
             maxTemp={1000}
             detectorType="PbS / Gaz Bandı"
             onSaveMeasurement={(ref, meas, name) => {
-              console.log('Saved', ref, meas, name)
-              setMeasurements(prev => [...prev, { ref, measured: meas, device: name }])
+              console.log('Saved measurement:', ref, meas, name)
             }}
           />
         </SafeComponent>
@@ -258,7 +255,7 @@ function LabScene({
       <Suspense fallback={null}>
         <SafeComponent name="RadiationThermometer4">
           <RadiationThermometer
-            position={[0.32, 1.04, -0.42]}
+            position={[0.32, 1.04, -3.72]}
             rotation={[0, -0.18, 0]}
             color="#059669"
             ambientTemp={ambientTemp}
@@ -269,8 +266,7 @@ function LabScene({
             maxTemp={500}
             detectorType="Termopil"
             onSaveMeasurement={(ref, meas, name) => {
-              console.log('Saved', ref, meas, name)
-              setMeasurements(prev => [...prev, { ref, measured: meas, device: name }])
+              console.log('Saved measurement:', ref, meas, name)
             }}
           />
         </SafeComponent>
@@ -280,7 +276,7 @@ function LabScene({
       <Suspense fallback={null}>
         <SafeComponent name="IRCalibrator1">
           <IRCalibrator
-            position={[0.8, 0.90, -0.5]}
+            position={[0.8, 0.90, -3.8]}
             minTemp={-15}
             maxTemp={150}
             targetTemp={ir1TargetTemp}
@@ -295,7 +291,7 @@ function LabScene({
       <Suspense fallback={null}>
         <SafeComponent name="IRCalibrator2">
           <IRCalibrator
-            position={[1.5, 0.90, -0.5]}
+            position={[1.5, 0.90, -3.8]}
             minTemp={35}
             maxTemp={500}
             targetTemp={ir2TargetTemp}
@@ -333,43 +329,6 @@ function LabScene({
             currentHum={cabCurrentHum}
             holePosition={[-3.475, 0.95, -0.6]}
             sensorPosition={[-3.1, 1.06, -0.55]}
-          />
-        </SafeComponent>
-      </Suspense>
-
-      {/* Dashboard – back wall center */}
-      <Suspense fallback={null}>
-        <SafeComponent name="Dashboard">
-          <Dashboard
-            position={[0.4, 2.5, -4.8]}
-            ambientTemp={ambientTemp}
-            bbTemp={bb1CurrentTemp}
-            bb2Temp={bb2CurrentTemp}
-            cabinetTemp={cabCurrentTemp}
-            cabinetHum={cabCurrentHum}
-          />
-        </SafeComponent>
-      </Suspense>
-
-      {/* DashboardLeft – back wall left (IR Calibrator Operations) */}
-      <Suspense fallback={null}>
-        <SafeComponent name="DashboardLeft">
-          <DashboardLeft
-            position={[-1.8, 2.5, -4.8]}
-            cal1Temp={ir1CurrentTemp}
-            cal2Temp={ir2CurrentTemp}
-          />
-        </SafeComponent>
-      </Suspense>
-
-      {/* Mission Board – back wall right */}
-      <Suspense fallback={null}>
-        <SafeComponent name="MissionBoard">
-          <MissionBoard
-            position={[2.8, 2.5, -4.8]}
-            missionActive={missionActive}
-            startMission={() => setMissionActive(true)}
-            measurements={measurements}
           />
         </SafeComponent>
       </Suspense>
@@ -473,7 +432,7 @@ function App() {
   return (
     <div className="app-shell">
       <Canvas
-        camera={{ position: [0, 2.0, 3.2], fov: 52 }}
+        camera={{ position: [0, 1.8, -1.8], fov: 52 }}
         gl={{ antialias: true, powerPreference: 'high-performance' }}
       >
         <XR store={xrStore}>
@@ -529,7 +488,7 @@ function App() {
               <button 
                 className="secondary" 
                 style={{ fontSize: '11px', padding: '4px 8px' }}
-                onClick={() => handleTeleport(new THREE.Vector3(0, 0, 1.2))}
+                onClick={() => handleTeleport(new THREE.Vector3(0, 0, -2.0))}
               >
                 🎯 Merkez Masa
               </button>

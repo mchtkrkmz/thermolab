@@ -11,14 +11,14 @@ export interface AABB {
 
 // Physical obstacles in the laboratory (Tables, Cabinets, Equipment bases)
 export const LAB_OBSTACLES: AABB[] = [
-  // Center Main Table: position=[0, 0.45, -0.5], size=[4.0, 0.9, 1.2]
+  // Center Main Table: position=[0, 0.45, -3.8], size=[4.0, 0.9, 1.2]
   {
     id: 'center-table',
     name: 'Center Main Table',
     minX: -2.05,
     maxX: 2.05,
-    minZ: -1.15,
-    maxZ: 0.15
+    minZ: -4.45,
+    maxZ: -3.15
   },
   // Left Table: position=[-4.2, 0.45, 0], size=[1.2, 0.9, 3.0]
   {
