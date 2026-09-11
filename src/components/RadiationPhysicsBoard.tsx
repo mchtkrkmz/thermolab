@@ -1,6 +1,7 @@
-import { useState, Suspense } from 'react'
+import { useState, Suspense, Component, type ReactNode } from 'react'
 import { Text, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
+import { getAssetUrl } from '../utils/assets'
 
 interface SlideData {
   title: string
@@ -153,8 +154,32 @@ const SLIDES: SlideData[] = [
   },
 ]
 
+class TextureErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  state = { hasError: false }
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <Text
+          position={[0, 0, 0.02]}
+          fontSize={0.05}
+          color="#94a3b8"
+          anchorX="center"
+          anchorY="middle"
+        >
+          Görsel Hazırlanıyor...
+        </Text>
+      )
+    }
+    return this.props.children
+  }
+}
+
 function SlideImageMesh({ imagePath }: { imagePath: string }) {
-  const texture = useTexture(imagePath)
+  const finalUrl = getAssetUrl(imagePath)
+  const texture = useTexture(finalUrl)
   texture.colorSpace = THREE.SRGBColorSpace
 
   return (
@@ -373,13 +398,14 @@ export default function RadiationPhysicsBoard({
               color="#94a3b8"
               anchorX="center"
               anchorY="middle"
-              font="/fonts/arial.ttf"
             >
               Görsel Yükleniyor...
             </Text>
           }
         >
-          <SlideImageMesh imagePath={activeSlide.imagePath} />
+          <TextureErrorBoundary>
+            <SlideImageMesh imagePath={activeSlide.imagePath} />
+          </TextureErrorBoundary>
         </Suspense>
 
         {/* Image Caption Bar */}

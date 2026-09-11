@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useTexture, Text } from '@react-three/drei'
 import * as THREE from 'three'
+import { getAssetUrl } from '../utils/assets'
 
 export interface TubitakUmeSignProps {
   position: [number, number, number]
@@ -27,7 +28,7 @@ export default function TubitakUmeSign({
   title = 'TÜBİTAK ULUSAL METROLOJİ ENSTİTÜSÜ',
   subtitle = 'Kontak Sıcaklığı, Radyosyon Sıcaklığı ve Nem Laboratuvarı',
 }: TubitakUmeSignProps) {
-  const logoTexture = useTexture('/tubitak_ume_logo.png')
+  const logoTexture = useTexture(getAssetUrl('tubitak_ume_logo.png'))
 
   useMemo(() => {
     if (logoTexture) {

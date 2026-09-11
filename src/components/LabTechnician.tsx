@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { Text, useTexture } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
+import { getAssetUrl } from '../utils/assets'
 
 export interface LabTechnicianProps {
   position?: [number, number, number]
@@ -48,7 +49,7 @@ export default function LabTechnician({
   currentCabTemp = 25,
   currentCabHum = 50,
 }: LabTechnicianProps) {
-  const photoTexture = useTexture('/technician.png')
+  const photoTexture = useTexture(getAssetUrl('technician.png'))
   photoTexture.colorSpace = THREE.SRGBColorSpace
 
   // 5 BÜYÜK METROLOJİK İSTASYONUN BİLİMSEL VERİLERİ (SIFIR HATALI METROLOJİK STANDARTLAR)
