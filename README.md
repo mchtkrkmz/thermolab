@@ -53,6 +53,8 @@
 
 ## 🛠️ Kurulum ve Çalıştırma
 
+> 📖 **Detaylı Adım Adım Rehber:** Komutlar, VR başlık bağlantısı ve sorun giderme adımları için [KULLANIM_KILAVUZU.md](file:///c:/Users/m_kor/OneDrive/Belgeler/Vr/webxr-lab/KULLANIM_KILAVUZU.md) belgesine; kullanılan tüm teknolojiler ve mimari yapı için [TEKNOLOJI_VE_MIMARI.md](file:///c:/Users/m_kor/OneDrive/Belgeler/Vr/webxr-lab/TEKNOLOJI_VE_MIMARI.md) belgesine göz atabilirsiniz.
+
 ### Gereksinimler
 - [Node.js](https://nodejs.org/) (v18 veya üzeri)
 - Modern bir WebXR destekli tarayıcı (Google Chrome, Microsoft Edge veya Meta Quest Browser)

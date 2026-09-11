@@ -19,137 +19,139 @@ interface SlideData {
 
 const SLIDES: SlideData[] = [
   {
-    title: '1. PLANCK IŞINIM KURAMI & SPEKTRAL IŞINIKLIK',
-    subtitle: 'Kuantum Fiziğinin Doğuşu ve Termal Radyasyonun Temel İlkeleri',
-    imagePath: '/slides/planck_curves.jpg',
-    imageCaption: 'Spektral Işınım Dağılımı L_λ(T) vs Dalgaboyu (Planck Eğrileri, Wien Kayması & Klasik Çıkmaz)',
-    badge: 'TEMEL KURAM (1900)',
-    badgeColor: '#00f0ff',
-    heading: 'Planck Spektral Işınım Formülasyonu',
-    formulaTitle: 'Planck Işınım Bağıntısı [W / (m² · sr · µm)]',
-    formula: 'L_λ(λ, T) = (2·h·c²) / [ λ⁵ · (e^(h·c / (λ·k_B·T)) - 1) ]',
-    formulaExplanation: 'h: 6.626×10⁻³⁴ J·s (Planck) | c: 3×10⁸ m/s | k_B: 1.381×10⁻²³ J/K (Boltzmann)',
+    title: '1. BAĞIL NEM, ÇİY NOKTASI & PSİKROMETRİ FİZİĞİ',
+    subtitle: 'Havadaki Su Buharının Termodinamik Davranışı ve Doyma Eğrileri',
+    imagePath: '/slides/humidity_psychrometrics_physics.jpg',
+    imageCaption: 'Termodinamik Psikrometrik Diyagram (%100 RH Doyma Eğrisi), Kısmi Buhar Basıncı e vs e_s(T) ve Sıcaklık Duyarlılığı',
+    badge: 'TERMODİNAMİK TEMELLER',
+    badgeColor: '#38bdf8',
+    heading: 'Havadaki Nem ve Termodinamik Psikrometri Bağıntıları',
+    formulaTitle: 'Bağıl Nem (%rh) ve Doyma Buhar Basıncı Formülasyonu',
+    formula: 'RH = [ e / e_s(T) ] × 100 %   |   e_s(T_d) = e (Çiy Noktası Eşitliği)',
+    formulaExplanation: 'e: Su buharı kısmi basıncı (Pa) | e_s(T): Doyma buhar basıncı (Sonntag/WMO) | T_d: Çiy noktası sıcaklığı',
     bullets: [
       {
-        label: 'Termal Radyasyonun Tanımı (TÜBİTAK UME Temeli):',
-        text: 'Radyasyon sıcaklığı, bir nesnenin yüzeyinden yayılan termal radyasyonun Planck kuramına göre temassız ölçülmesiyle elde edilen fiziksel büyüklüktür.',
+        label: 'Bağıl Nemin Tanımı (%rh):',
+        text: 'Belirli bir sıcaklık ve basınçtaki havanın içerdiği su buharı kısmi basıncının (e), havanın o sıcaklıkta taşıyabileceği maksimum doyma buhar basıncına (e_s(T)) oranıdır.',
         highlight: true,
       },
       {
-        label: 'Klasik Fizik & Morötesi Felaketin Çözümü:',
-        text: 'Klasik Rayleigh-Jeans yasası kısa dalgaboylarında sonsuz ışıma öngörüyordu. Max Planck, enerjinin sürekli değil "h·ν" kuantları halinde yayıldığını ortaya koyarak kuantum fiziğini başlattı.',
+        label: 'Çiy Noktası / Kırağı Noktası Sıcaklığı (T_d / T_f):',
+        text: 'Sabit basınç altındaki havanın, içindeki su buharının doymuş hale gelerek sıvı su (çiy) veya buz kristali (kırağı) şeklinde yoğunlaşmaya başladığı termodinamik sıcaklıktır.',
       },
       {
-        label: 'Wien Kayma Kanunu (λ_peak · T = 2897.8 µm·K):',
-        text: 'Sıcaklık arttıkça spektrum tepe noktası daha kısa dalgaboylarına kayar. Güneş (~5800 K) 0.5 µm görünür ışıkta, oda sıcaklığı (~300 K) 10 µm LWIR bölgesinde tepe yapar.',
+        label: 'Kritik Sıcaklık Duyarlılığı (1 °C → >%5 rh Hata):',
+        text: 'Doyma basıncı e_s(T) sıcaklıkla üssel arttığı için, hava sıcaklığı ölçümündeki yalnızca 1.0 °C\'lik bir hata, bağıl nem değerinde %5 rh\'nin üzerinde devasa bir sapmaya yol açar!',
+        highlight: true,
       },
       {
-        label: 'Stefan-Boltzmann Toplam Güç Yasası (M = σ·T⁴):',
-        text: 'Siyah cismin yaydığı toplam güç Kelvin sıcaklığının 4. kuvvetiyle orantılıdır (σ ≈ 5.670×10⁻⁸ W/m²K⁴). Sıcaklık arttıkça yayılan enerji muazzam bir hızla büyür.',
+        label: 'TÜBİTAK UME Yüksek Doğruluk Seviyesi:',
+        text: 'Laboratuvarda hava sıcaklığı belirsizliği -10 °C ile 70 °C arasında 0.07 °C (k=2) seviyesine indirilmiş olup, nem kalibrasyonlarının mutlak güvenilirliği temin edilmektedir.',
         highlight: true,
       },
     ],
-    takeaway: 'Özet: Planck kuramı temassız sıcaklık ölçümünün kalbidir. Yüzeyden yayılan ışımanın spektral dağılımı ölçülerek nesnenin mutlak sıcaklığı hesaplanır.',
+    takeaway: 'Özet: Bağıl nem doğrudan hava sıcaklığına bağımlıdır. 1 °C sıcaklık sapması nemde %5 rh\'yi aşan hata üretir; bu nedenle nem metrolojisi kusursuz sıcaklık kontrolü gerektirir.',
   },
   {
-    title: '2. TÜBİTAK UME ULUSAL RADYASYON SICAKLIĞI ÖLÇEĞİ',
-    subtitle: 'Birincil Seviye Metroloji: -80 °C ile 3500 °C Arasında SI İzlenebilirliği',
-    imagePath: '/slides/tubitak_ume_radiation_scale.jpg',
-    imageCaption: 'TÜBİTAK UME Birincil Seviye Siyah Cisim Kalibrasyon Düzeneği ve Yüksek Sıcaklık Sabit Noktaları',
+    title: '2. TÜBİTAK UME ULUSAL NEM LABORATUVARI & BİRİNCİL ALTYAPI',
+    subtitle: 'Gazlarda Nem ve Katılarda Rutubet Ölçümlerinin Uluslararası İzlenebilirliği',
+    imagePath: '/slides/ume_nem-laboratuvari-img-1.jpg',
+    imageCaption: 'TÜBİTAK UME Nem Laboratuvarı Birincil Seviye İki-Basınçlı / İki-Sıcaklıklı Nem Jeneratörleri ve Kalibrasyon Odaları',
     badge: 'TÜBİTAK UME BİRİNCİL ÖLÇEK',
     badgeColor: '#f59e0b',
-    heading: 'Ulusal Radyasyon Sıcaklığı Ölçeği Realizasyonu',
-    formulaTitle: 'Gümüş Donma Noktası (961.78 °C) Üzerinde Birincil Tanım',
-    formula: 'T_90(Ag) = 961.78 °C   |   Ölçüm Aralığı: -80 °C ile 3500 °C',
-    formulaExplanation: 'ITS-90 & MeP-K tanımlı saf metal ve metal-karbon ötetik faz dönüşüm hücreleri',
+    heading: 'Ulusal Nem ve Rutubet Metrolojisi Standartları',
+    formulaTitle: 'BIPM CMC & TS EN ISO/IEC 17025 Kapsamı',
+    formula: 'Aralık: -80 °C ile +95 °C Çiy Noktası   |   %11 rh ile %95 rh Bağıl Nem',
+    formulaExplanation: 'Hava Sıcaklığı Belirsizliği: U = 0.07 °C (k=2) | Ortam Şartları: (21 ± 3) °C, %(45 ± 15) rh',
     bullets: [
       {
-        label: 'Birincil Seviye Ulusal Ölçek Misyonu:',
-        text: 'TÜBİTAK UME Radyasyon Sıcaklığı Laboratuvarı, Ulusal Radyasyon Sıcaklığı Ölçeği’ni birincil seviyede kurmakta, korumakta ve gümüş donma noktası (961.78 °C) üzerindeki sıcaklıklarda SI izlenebilirliği sağlamaktadır.',
+        label: 'Ulusal Görev ve SI İzlenebilirlik Zinciri:',
+        text: 'TÜBİTAK UME Nem Laboratuvarı; gazlarda nem (bağıl nem, mutlak nem, çiy/kırağı noktası) ve katıhal maddelerde rutubet ölçümlerinin SI birimlerine izlenebilirliğini birincil seviyede sağlar.',
         highlight: true,
       },
       {
-        label: 'ITS-90 Sabit Nokta Siyah Cisim Hücreleri:',
-        text: '• Saf Metal Hücreleri: İndiyum (156.6 °C), Kalay (231.9 °C), Çinko (419.5 °C), Alüminyum (660.3 °C), Gümüş (961.78 °C), Altın (1064.18 °C), Bakır (1084.62 °C).',
+        label: 'Birincil Seviye Ölçüm Sistemleri:',
+        text: '• Birincil seviye çiy noktası sistemi: -80 °C ile +10 °C çiy/kırağı noktası aralığı\n• Birincil seviye bağıl nem sistemi: -35 °C ile +60 °C çiy noktası ve %11 rh ile %95 rh nem\n• İkincil seviye bağıl nem sistemi: -40 °C ile +180 °C sıcaklık ve %10 rh ile %95 rh nem.',
       },
       {
-        label: 'Metal-Karbon Ötetik Hücreleri (MeP-K Tanımlı, 3000 °C):',
-        text: 'Yüksek sıcaklıklar için laboratuvarda doldurulan Fe-C, Pd-C, Pt-C, Co-C, Ru-C, Re-C, TiC-C ve WC-C ötetik hücreleri ile 3000 °C\'ye kadar birincil kalibrasyon imkanı sunulur.',
+        label: 'Katıhal Maddelerde Rutubet Tayini:',
+        text: 'Kurutma ile Kütle Kaybı (Loss-on-Drying) ve Karl Fischer (v-KF) titrasyonu ile tahıl, talaş, kağıt ve toprak numunelerinde (%2.7 mc ile %26.6 mc) izlenebilir su miktarı ölçümleri yapılır.',
         highlight: true,
       },
       {
-        label: 'Uluslararası Projeler & Teknik Komiteler:',
-        text: 'MultiFixRad (2023-2026: Çoklu Sabit Noktalı Radyasyon Termometrisi), Real-K (2019-2023: Yeniden Tanımlanan Kelvin), InK / InK-2; BIPM CCT, EURAMET, COOMET ve SMIIC üyelikleri.',
+        label: 'Uluslararası Komiteler ve Temsil:',
+        text: 'BIPM CCT-WG-Hu (Nem Çalışma Grubu), EURAMET TC-T, COOMET, GULFMET ve SMIIC teknik komitelerinde Türkiye\'yi temsil ederek çok uluslu araştırma projelerini yönetmektedir.',
       },
     ],
-    takeaway: 'Özet: TÜBİTAK UME, -80 °C\'den 3500 °C\'ye kadar sabit nokta hücreleri ve referans siyah cisimlerle Türkiye\'nin ulusal izlenebilirlik zincirini güvenceye alır.',
+    takeaway: 'Özet: TÜBİTAK UME Nem Laboratuvarı, -80 °C kırağı noktasından %95 rh neme kadar Türkiye\'nin endüstriyel, gıda ve iklim ölçüm izlenebilirliğini birincil düzeyde sağlar.',
   },
   {
-    title: '3. PİROMETRE & TERMAL KAMERA KALİBRASYON DÜZENEKLERİ',
-    subtitle: 'Ters Planck Çözümlemesi, Optik Parametreler ve Metroloji Altyapısı',
-    imagePath: '/slides/pyrometer_guide.jpg',
-    imageCaption: 'Optik Pirometre Ölçüm Geometrisi: Objektif Lens, Spektral Filtre, Dedektör ve Siyah Cisim Kavitesi',
-    badge: 'KALİBRASYON & ENSTRÜMANTASYON',
+    title: '3. İKİ-BASINÇLI NEM JENERATÖRÜ & OPTİK ÇİY NOKTASI AYNASI',
+    subtitle: 'Temel Fiziksel İlkeler: Termodinamik Basınç Doyurması ve Optik Yoğunlaşma Tespiti',
+    imagePath: '/slides/chilled_mirror_dewpoint_principle.jpg',
+    imageCaption: 'İki Basınçlı Nem Jeneratörü Akış Şeması ve Hassas Optik Çiy Noktası Aynalı Higrometre (Chilled Mirror) Kesiti',
+    badge: 'BİRİNCİL ÖLÇÜM & CİHAZ PRENSİBİ',
     badgeColor: '#10b981',
-    heading: 'Optik Ölçüm Parametreleri ve Ters Planck Bağıntısı',
-    formulaTitle: 'Ters Planck Denklemi ile Sıcaklık Çözümlemesi',
-    formula: 'T = c₂ / [ λ · ln( 1 + (ε_eff · c₁) / (λ⁵ · L_ölçülen) ) ]',
-    formulaExplanation: 'c₁ = 3.7418×10⁻¹⁶ W·m²  |  c₂ = 1.4388×10⁻² m·K  |  ε_eff ≥ 0.998 (Kavite Emissivitesi)',
+    heading: 'Optik Çiy Noktası Aynası ve İki Basınç İlkesi',
+    formulaTitle: 'Dalton Kısmi Basınç ve İki-Basınç Jeneratör Eşitliği',
+    formula: 'e = ( P₂ / P₁ ) · e_s(T)   |   RH = [ e / e_s(T_kabin) ] × 100 %',
+    formulaExplanation: 'P₁: Doyurucu yüksek basıncı | P₂: Test hücresi basıncı | e_s(T): Doyurucu sıcaklığındaki doyma basıncı',
     bullets: [
       {
-        label: 'Gelişmiş Laboratuvar Test Düzenekleri:',
-        text: '• Tayfsal Tepki Ölçüm Düzeneği: 300 nm – 1100 nm aralığı\n• Doğrusallık (Linearity) Düzeneği: Görünür ve yakın kızılötesi dalgaboyları\n• Kararlı Lambalar Kalibrasyon Düzeneği: 700 °C – 2200 °C aralığı.',
+        label: 'İki-Basınçlı Nem Jeneratörü Çalışma Prensibi:',
+        text: 'Kuru hava yüksek basınçta (P₁) suya tamamen doyurulur. Ardından genleşme vanasından geçirilerek test odasındaki çalışma basıncına (P₂) düşürülür. Dalton yasasına göre kısmi buhar basıncı doğrudan P₂ / P₁ oranıyla kesin belirlenir.',
         highlight: true,
       },
       {
-        label: 'Kaynak Büyüklüğü Etkisi (SSE - Size-of-Source Effect):',
-        text: 'Lens içi yansımalar ve optik saçılma nedeniyle dedektöre hedefin dışından giren kaçak ışık karakterize edilerek SSE ölçüm düzeneğiyle düzeltilir.',
+        label: 'Optik Çiy Noktası Aynalı Higrometre (Chilled Mirror):',
+        text: 'Masanızda duran Dew Point Mirror cihazı, rodyum kaplı bakır aynayı termoelektrik Peltier modülü ile soğutur. LED ışını aynaya yansıtılır; mikroskobik ilk çiy taneciği oluştuğunda optik kırılma algılanarak ayna çiy sıcaklığında kilitlenir.',
+        highlight: true,
       },
       {
-        label: 'Dedektör Dalgaboyu Bantları ve Cihaz Tasarımları:',
-        text: 'TÜBİTAK UME cihaz yapımı kabiliyeti:\n• 150 °C – 1000 °C ve 650 °C – 1600 °C radyasyon termometreleri\n• 1000 °C – 2500 °C dar bantlı radyasyon termometreleri (0.9 µm Si / 1.6 µm InGaAs).',
+        label: 'Platin Termometre (Pt100/SPRT) Hassasiyeti:',
+        text: 'Aynanın hemen altına entegre 4 telli platin sensör, yoğunlaşma anındaki ayna sıcaklığını < 0.05 °C belirsizlikle okuyarak gazın mutlak çiy noktası sıcaklığını verir.',
       },
       {
-        label: 'Laboratuvarda Ölçüm Alma:',
-        text: 'Masanın üzerindeki 4 pirometreden birini elinize alıp siyah cisim fırınına yöneltin ve tetiğe basın! Pirometre foton akısını okuyarak bu formülle sıcaklığı hesaplar.',
+        label: 'VR Laboratuvarı Uygulaması:',
+        text: 'Sol taraftaki İklimlendirme Kabininin hedef sıcaklık ve nemini ayarlayın; masadaki Optik Çiy Noktası Aynası kabinden aldığı gazı analiz ederek anlık çiy noktasını ekranda gösterecektir!',
         highlight: true,
       },
     ],
-    takeaway: 'Özet: Doğru radyasyon sıcaklığı ölçümü; odaklama geometrisi, SSE düzeltmesi, tayfsal doğrusallık ve yüksek kavite emissivitesinin (ε ≥ 0.998) bileşimidir.',
+    takeaway: 'Özet: Optik çiy noktası aynası temel bir fiziksel ölçümdür (drift yapmaz). İki-basınç yöntemi ise nemi kimyasal sensör kullanmadan doğrudan termodinamik basınç oranıyla üretir.',
   },
   {
-    title: '4. ENDÜSTRİYEL, SAVUNMA VE TIBBİ METROLOJİ UYGULAMALARI',
-    subtitle: 'Ağır Sanayiden Sağlık Sektörüne ve İklim Değişikliği İzlemesine Uzanan Alanlar',
-    imagePath: '/slides/scientists.jpg',
-    imageCaption: 'TÜBİTAK UME Radyasyon Sıcaklığı Uygulama Alanları: Sanayi Fırınları, Savunma Kızılötesi Sistemleri ve Tıbbi Metroloji',
-    badge: 'UYGULAMA ALANLARI & TOPLUM',
+    title: '4. ENDÜSTRİYEL, ÇEVRESEL VE İLERİ TEKNOLOJİ UYGULAMALARI',
+    subtitle: 'Temiz Odalardan İlaç Üretimine, Lityum Bataryalardan İklim Uydularına',
+    imagePath: '/slides/ume_termodinamik_3.png',
+    imageCaption: 'TÜBİTAK UME Nem Metrolojisi Uygulama Alanları: Temiz Odalar, İlaç/Aşı Üretimi, Tahıl Güvenliği ve İklim Projeleri',
+    badge: 'SEKTÖREL UYGULAMALAR & AR-GE',
     badgeColor: '#8b5cf6',
-    heading: 'Temassız Sıcaklık Ölçümünün Hayati Rolü',
-    formulaTitle: 'Metrolojik Çevre Şartları & Güvenilirlik Standartları',
-    formula: 'T_ortam = (21.0 ± 3.0) °C   |   Bağıl Nem = (45 ± 15) % rh',
-    formulaExplanation: 'İzlenebilir kalibrasyon sertifikaları TÜBİTAK UME laboratuvar şartlarında verilir.',
+    heading: 'Hayati Alanlarda Nem ve Rutubet Güvencesi',
+    formulaTitle: 'Eser Nem (Trace Moisture) & Malzeme Su İçeriği',
+    formula: 'W_eser < 50 ppb (Ultra Kuru Gaz)   |   Rutubet = ( m_ıslak - m_kuru ) / m_ıslak',
+    formulaExplanation: 'ppb: Milyarda bir su molekülü | Karl Fischer (v-KF) titrasyonu ve Loss-on-Drying kütle kaybı',
     bullets: [
       {
-        label: 'Ağır Sanayi & Üretim Optimizasyonu:',
-        text: 'Eriyik metaller, cam üretimi, çimento fırınları, petrokimya ve kağıt sanayisi gibi temaslı sensörlerin eridiği veya ulaşılamadığı tehlikeli ortamlarda güvenli süreç kontrolü sağlar.',
+        label: 'İlaç, Aşı ve Temiz Oda Metrolojisi:',
+        text: 'Biyofarmasötik ve aşı üretiminde ortam bağıl nemi mikrobiyolojik üremeyi ve etken madde stabilitesini doğrudan belirler. İklimlendirme kabinleri EN ISO standartlarına göre UME tarafından karakterize edilir.',
         highlight: true,
       },
       {
-        label: 'Tıbbi Metroloji & Salgın Hastalık Tespiti:',
-        text: 'COVID-19 sürecinde önemi katlanan temassız alın/deri termometreleri ve termal kameraların (in-vivo) vücut ateşi ölçümlerinde güvenilirlik TÜBİTAK UME kalibrasyonlarıyla temin edilir.',
+        label: 'Yarı İletken, Lityum Pil ve Uzay Sanayii:',
+        text: 'Lityum-iyon batarya üretimi ve havacılık/uzay gaz hatlarında ultra kuru (< 50 ppb) gaz ortamı gereklidir. UME, gerçek zamanlı eser nem analiz sistemiyle bu yüksek teknolojiyi destekler.',
         highlight: true,
       },
       {
-        label: 'Savunma Sanayii & Kızılötesi Hedef Tespiti:',
-        text: 'Uzak ve hareketli nesnelerin termal ışıma imzalarının (IR signature) tespit edilmesi, güdüm sistemleri ve termal görüş cihazlarının kalibrasyonunda kritik öneme sahiptir.',
+        label: 'Gıda Güvenliği & Tahıl Rutubeti (GrainMet):',
+        text: 'Dökme tahıllarda yüksek rutubet aflatoksin ve küflenmeye yol açar. UME, uluslararası GrainMet (2024-2027) projesiyle bitkisel gıdalarda standart nem metrolojisini yönetmektedir.',
       },
       {
-        label: 'Çevre, İklim Değişikliği & Uydu Metrolojisi:',
-        text: 'Toprak, göl ve deniz yüzey sıcaklıklarının (SST) uydu tabanlı radyometrelerle uzaktan izlenmesinde referans radyasyon sıcaklığı standartları kullanılır.',
+        label: 'İklim Değişikliği & Sera Gazları (MetCTG & SOMMET):',
+        text: 'Toprak nemi (SOMMET MetroSoilMoist), sera gazı uyduları (MetCTG: 2025-2028) ve gaz spektrometrisi (PriSpecTemp) projeleri UME liderliğinde yürütülmektedir.',
         highlight: true,
       },
     ],
-    takeaway: 'Özet: Çelik ergitme fırınlarından pandemi ateş taramasına ve iklim uydularına kadar temassız sıcaklık ölçümü modern dünyanın vazgeçilmezidir.',
+    takeaway: 'Özet: İlaç fabrikalarından lityum batarya üretimine, tahıl ambarlarından iklim uydularına kadar nem ve su miktarı metrolojisi kalite ve güvenliğin temelidir.',
   },
 ]
 
@@ -165,15 +167,15 @@ function SlideImageMesh({ imagePath }: { imagePath: string }) {
   )
 }
 
-interface RadiationPhysicsBoardProps {
+interface HumidityMetrologyBoardProps {
   position?: [number, number, number]
   rotation?: [number, number, number]
 }
 
-export default function RadiationPhysicsBoard({
-  position = [0, 2.45, -4.82],
-  rotation = [0, 0, 0],
-}: RadiationPhysicsBoardProps) {
+export default function HumidityMetrologyBoard({
+  position = [-4.88, 2.50, -0.2],
+  rotation = [0, Math.PI / 2, 0],
+}: HumidityMetrologyBoardProps) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
   const [hoveredButton, setHoveredButton] = useState<string | null>(null)
 
@@ -219,42 +221,42 @@ export default function RadiationPhysicsBoard({
         <meshBasicMaterial color="#111827" />
       </mesh>
 
-      {/* TÜBİTAK / PTB Metrology Badge */}
+      {/* TÜBİTAK / EURAMET Metrology Badge */}
       <mesh position={[-1.95, 1.06, 0.008]}>
-        <planeGeometry args={[1.0, 0.07]} />
-        <meshBasicMaterial color="#1e3a8a" />
+        <planeGeometry args={[1.05, 0.07]} />
+        <meshBasicMaterial color="#0369a1" />
       </mesh>
       <Text
         position={[-1.95, 1.06, 0.01]}
-        fontSize={0.032}
-        color="#93c5fd"
+        fontSize={0.030}
+        color="#bae6fd"
         anchorX="center"
         anchorY="middle"
         font="/fonts/arial.ttf"
       >
-        METROLOJİ & EĞİTİM MODÜLÜ
+        TÜBİTAK UME NEM METROLOJİSİ
       </Text>
 
       {/* Main Title */}
       <Text
-        position={[0, 1.06, 0.01]}
-        fontSize={0.065}
+        position={[0.08, 1.06, 0.01]}
+        fontSize={0.062}
         color="#ffffff"
         anchorX="center"
         anchorY="middle"
         font="/fonts/arial.ttf"
       >
-        RADYASYON VE SICAKLIK METROLOJİSİ EĞİTİM PANOSU
+        BAĞIL NEM, ÇİY NOKTASI VE RUTUBET EĞİTİM PANOSU
       </Text>
 
       {/* Slide Badge on Top Right */}
       <mesh position={[2.0, 1.06, 0.008]}>
-        <planeGeometry args={[0.85, 0.07]} />
+        <planeGeometry args={[0.92, 0.07]} />
         <meshBasicMaterial color={activeSlide.badgeColor} />
       </mesh>
       <Text
         position={[2.0, 1.06, 0.01]}
-        fontSize={0.032}
+        fontSize={0.030}
         color="#000000"
         anchorX="center"
         anchorY="middle"
@@ -278,7 +280,7 @@ export default function RadiationPhysicsBoard({
       {/* Decorative Horizontal Divider Line */}
       <mesh position={[0, 0.85, 0.008]}>
         <planeGeometry args={[5.0, 0.006]} />
-        <meshBasicMaterial color="#38bdf8" />
+        <meshBasicMaterial color="#0284c7" />
       </mesh>
 
       {/* ========================================================
@@ -290,11 +292,11 @@ export default function RadiationPhysicsBoard({
         const posX = (idx - 1.5) * 1.25
         const posY = 0.76
 
-        const tabTitles = [
-          '1. Planck Kuramı',
-          '2. UME Birincil Ölçeği',
-          '3. Pirometre Kalibrasyonu',
-          '4. Endüstri & Tıp'
+        const tabLabels = [
+          '1. Bağıl Nem & Çiy Noktası',
+          '2. UME Nem Laboratuvarı',
+          '3. Jeneratör & Çiy Aynası',
+          '4. Endüstri & İklim Projeleri'
         ]
 
         return (
@@ -342,7 +344,7 @@ export default function RadiationPhysicsBoard({
               anchorY="middle"
               font="/fonts/arial.ttf"
             >
-              {tabTitles[idx] || `Slayt ${idx + 1}`}
+              {tabLabels[idx]}
             </Text>
           </group>
         )
@@ -389,7 +391,7 @@ export default function RadiationPhysicsBoard({
         </mesh>
         <Text
           position={[0, -0.70, 0.025]}
-          fontSize={0.030}
+          fontSize={0.029}
           color="#e2e8f0"
           anchorX="center"
           anchorY="middle"
@@ -429,7 +431,7 @@ export default function RadiationPhysicsBoard({
         </mesh>
         <mesh position={[0, 0.54, 0.004]}>
           <planeGeometry args={[2.30, 0.21]} />
-          <meshBasicMaterial color="#2563eb" />
+          <meshBasicMaterial color="#0284c7" />
         </mesh>
 
         <Text
@@ -445,7 +447,7 @@ export default function RadiationPhysicsBoard({
 
         <Text
           position={[0, 0.53, 0.008]}
-          fontSize={0.040}
+          fontSize={0.038}
           color="#38bdf8"
           anchorX="center"
           anchorY="middle"
@@ -468,7 +470,6 @@ export default function RadiationPhysicsBoard({
         {/* Bullet Points Container */}
         <group position={[-1.12, 0.36, 0.005]}>
           {activeSlide.bullets.map((b, i) => {
-            // Dynamic vertical position for bullet items
             const itemY = -i * 0.165
             return (
               <group key={`bullet-${i}`} position={[0, itemY, 0]}>
@@ -511,16 +512,16 @@ export default function RadiationPhysicsBoard({
         {/* Bottom Key Takeaway Callout Box */}
         <mesh position={[0, -0.68, 0.005]}>
           <planeGeometry args={[2.28, 0.12]} />
-          <meshBasicMaterial color="#1e1b4b" />
+          <meshBasicMaterial color="#0c4a6e" />
         </mesh>
         <mesh position={[-1.13, -0.68, 0.007]}>
           <planeGeometry args={[0.02, 0.12]} />
-          <meshBasicMaterial color="#818cf8" />
+          <meshBasicMaterial color="#38bdf8" />
         </mesh>
         <Text
           position={[-1.09, -0.68, 0.008]}
           fontSize={0.028}
-          color="#c7d2fe"
+          color="#e0f2fe"
           anchorX="left"
           anchorY="middle"
           maxWidth={2.18}
@@ -560,7 +561,7 @@ export default function RadiationPhysicsBoard({
           <mesh position={[0, 0, 0]}>
             <planeGeometry args={[0.7, 0.09]} />
             <meshBasicMaterial
-              color={hoveredButton === 'prev' ? '#2563eb' : '#1e293b'}
+              color={hoveredButton === 'prev' ? '#0284c7' : '#1e293b'}
             />
           </mesh>
           <Text
@@ -643,7 +644,7 @@ export default function RadiationPhysicsBoard({
           <mesh position={[0, 0, 0]}>
             <planeGeometry args={[0.7, 0.09]} />
             <meshBasicMaterial
-              color={hoveredButton === 'next' ? '#2563eb' : '#1e293b'}
+              color={hoveredButton === 'next' ? '#0284c7' : '#1e293b'}
             />
           </mesh>
           <Text

@@ -31,6 +31,9 @@ export default function BlackBodySource({
   const rimGlowMaterialRef = useRef<THREE.MeshStandardMaterial>(null)
   const cavityLightRef = useRef<THREE.PointLight>(null)
   const cavityMeshRef = useRef<THREE.Mesh>(null)
+  const apertureTargetRef = useRef<THREE.Mesh>(null)
+  const frontPlateRef = useRef<THREE.Mesh>(null)
+  const glowRimRef = useRef<THREE.Mesh>(null)
 
   // Real-time physics simulation for heating and cooling with dynamic incandescence
   useFrame((_, delta) => {
@@ -116,12 +119,39 @@ export default function BlackBodySource({
 
     if (cavityMeshRef.current) {
       cavityMeshRef.current.userData.temperature = currentTemp
+      cavityMeshRef.current.userData.currentTemp = currentTemp
       cavityMeshRef.current.userData.isBlackBody = true
+      cavityMeshRef.current.userData.isApertureCenter = true
+      cavityMeshRef.current.userData.sourceName = modelName
+    }
+
+    if (apertureTargetRef.current) {
+      apertureTargetRef.current.userData.temperature = currentTemp
+      apertureTargetRef.current.userData.currentTemp = currentTemp
+      apertureTargetRef.current.userData.isBlackBody = true
+      apertureTargetRef.current.userData.isApertureCenter = true
+      apertureTargetRef.current.userData.sourceName = modelName
+    }
+
+    if (glowRimRef.current) {
+      glowRimRef.current.userData.temperature = currentTemp
+      glowRimRef.current.userData.currentTemp = currentTemp
+      glowRimRef.current.userData.isBlackBody = true
+      glowRimRef.current.userData.isApertureCenter = true
+      glowRimRef.current.userData.sourceName = modelName
+    }
+
+    if (frontPlateRef.current) {
+      frontPlateRef.current.userData.temperature = currentTemp
+      frontPlateRef.current.userData.currentTemp = currentTemp
+      frontPlateRef.current.userData.isBlackBody = true
+      frontPlateRef.current.userData.isAperturePlate = true
+      frontPlateRef.current.userData.sourceName = modelName
     }
   })
 
   return (
-    <group position={position}>
+    <group position={position} userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, sourceName: modelName }}>
       <group>
 
         {/* --- Base Stand --- */}
@@ -141,17 +171,17 @@ export default function BlackBodySource({
         </mesh>
 
         {/* --- Main Cylindrical Furnace Body --- */}
-        <group position={[0, 0.4, 0]}>
+        <group position={[0, 0.4, 0]} userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, isAperturePlate: true, sourceName: modelName }}>
           {/* Main Cylinder Outer Shell */}
-          <mesh rotation={[Math.PI / 2, 0, 0]}>
+          <mesh rotation={[Math.PI / 2, 0, 0]} userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, sourceName: modelName }}>
             <cylinderGeometry args={[0.22, 0.22, 0.4, 32, 1, true]} />
             <meshStandardMaterial color="#dcdcdc" roughness={0.5} metalness={0.25} />
           </mesh>
 
           {/* Main Cylinder Front Cap */}
-          <mesh position={[0, 0, 0.2]}>
+          <mesh position={[0, 0, 0.2]} userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, isAperturePlate: true, sourceName: modelName }}>
             <ringGeometry args={[0.12, 0.22, 32]} />
-            <meshStandardMaterial color="#dcdcdc" roughness={0.5} metalness={0.25} />
+            <meshStandardMaterial color="#dcdcdc" roughness={0.5} metalness={0.25} side={THREE.DoubleSide} />
           </mesh>
 
           {/* Main Cylinder Back Cap */}
@@ -161,13 +191,21 @@ export default function BlackBodySource({
           </mesh>
 
           {/* Front Black Aperture Heat Shield Plate */}
-          <mesh position={[0, 0, 0.201]}>
-            <ringGeometry args={[0.045, 0.12, 32]} />
-            <meshStandardMaterial color="#1a1a1a" roughness={0.85} />
+          <mesh
+            ref={frontPlateRef}
+            position={[0, 0, 0.201]}
+            userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, isAperturePlate: true, sourceName: modelName }}
+          >
+            <ringGeometry args={[0.045, 0.13, 32]} />
+            <meshStandardMaterial color="#1a1a1a" roughness={0.85} side={THREE.DoubleSide} />
           </mesh>
 
           {/* Inner Cavity Aperture Glow Rim (subtle warm ring at mouth of cavity) */}
-          <mesh position={[0, 0, 0.202]}>
+          <mesh
+            ref={glowRimRef}
+            position={[0, 0, 0.202]}
+            userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, isApertureCenter: true, sourceName: modelName }}
+          >
             <ringGeometry args={[0.043, 0.048, 32]} />
             <meshStandardMaterial
               ref={rimGlowMaterialRef}
@@ -177,12 +215,22 @@ export default function BlackBodySource({
             />
           </mesh>
 
+          {/* Aperture Raycast Target (Kavite Ağzı Hedef Yakalama - Geniş ve Çift Yönlü) */}
+          <mesh
+            ref={apertureTargetRef}
+            position={[0, 0, 0.206]}
+            userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, isApertureCenter: true, sourceName: modelName }}
+          >
+            <circleGeometry args={[0.10, 32]} />
+            <meshBasicMaterial transparent opacity={0.001} depthWrite={false} side={THREE.DoubleSide} />
+          </mesh>
+
           {/* Inner Cavity Tube Wall (Glows when hot) */}
           <mesh
             ref={cavityMeshRef}
             position={[0, 0, 0.0]}
             rotation={[Math.PI / 2, 0, 0]}
-            userData={{ temperature: currentTemp, isBlackBody: true }}
+            userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, isApertureCenter: true, sourceName: modelName }}
           >
             <cylinderGeometry args={[0.045, 0.045, 0.4, 32]} />
             <meshStandardMaterial
@@ -196,7 +244,7 @@ export default function BlackBodySource({
           {/* Cavity Target Back Disk */}
           <mesh
             position={[0, 0, -0.198]}
-            userData={{ temperature: currentTemp, isBlackBody: true }}
+            userData={{ temperature: currentTemp, currentTemp, isBlackBody: true, isApertureCenter: true, sourceName: modelName }}
           >
             <circleGeometry args={[0.045, 32]} />
             <meshStandardMaterial
@@ -309,41 +357,15 @@ export default function BlackBodySource({
             {targetTemp.toFixed(1)}
           </Text>
 
-          {/* Tactile 3D Buttons: -100, -10, +10, +100 */}
-          {/* -100 Button */}
+          {/* Tactile 3D Buttons: -10 °C, -1 °C, +1 °C, +10 °C */}
+          {/* -10 °C Button */}
           <group
-            position={[-0.075, -0.032, 0.004]}
+            position={[-0.076, -0.032, 0.004]}
             onClick={(e: ThreeEvent<MouseEvent>) => {
               e.stopPropagation()
-              setTargetTemp(t => Math.max(minTemp, Math.round((t - 100) * 10) / 10))
+              setTargetTemp(t => Math.max(minTemp, Math.round((t - 10) * 10) / 10))
             }}
-            onPointerOver={(e) => {
-              e.stopPropagation()
-              document.body.style.cursor = 'pointer'
-            }}
-            onPointerOut={() => { document.body.style.cursor = 'auto' }}
-          >
-            <mesh>
-              <boxGeometry args={[0.044, 0.024, 0.008]} />
-              <meshStandardMaterial color="#334155" roughness={0.5} />
-            </mesh>
-            <Text
-              position={[0, 0, 0.005]}
-              fontSize={0.008}
-              color="#ffffff"
-              anchorX="center"
-              anchorY="middle"
-              font="/fonts/arial.ttf"
-              fontWeight="bold"
-            >
-              -100
-            </Text>
-          </group>
-
-          {/* -10 Button */}
-          <group
-            position={[-0.025, -0.032, 0.004]}
-            onClick={(e: ThreeEvent<MouseEvent>) => {
+            onPointerDown={(e: ThreeEvent<PointerEvent>) => {
               e.stopPropagation()
               setTargetTemp(t => Math.max(minTemp, Math.round((t - 10) * 10) / 10))
             }}
@@ -354,7 +376,41 @@ export default function BlackBodySource({
             onPointerOut={() => { document.body.style.cursor = 'auto' }}
           >
             <mesh>
-              <boxGeometry args={[0.044, 0.024, 0.008]} />
+              <boxGeometry args={[0.044, 0.022, 0.008]} />
+              <meshStandardMaterial color="#1e293b" roughness={0.5} />
+            </mesh>
+            <Text
+              position={[0, 0, 0.005]}
+              fontSize={0.0075}
+              color="#f87171"
+              anchorX="center"
+              anchorY="middle"
+              font="/fonts/arial.ttf"
+              fontWeight="bold"
+            >
+              -10
+            </Text>
+          </group>
+
+          {/* -1 °C Button */}
+          <group
+            position={[-0.026, -0.032, 0.004]}
+            onClick={(e: ThreeEvent<MouseEvent>) => {
+              e.stopPropagation()
+              setTargetTemp(t => Math.max(minTemp, Math.round((t - 1) * 10) / 10))
+            }}
+            onPointerDown={(e: ThreeEvent<PointerEvent>) => {
+              e.stopPropagation()
+              setTargetTemp(t => Math.max(minTemp, Math.round((t - 1) * 10) / 10))
+            }}
+            onPointerOver={(e) => {
+              e.stopPropagation()
+              document.body.style.cursor = 'pointer'
+            }}
+            onPointerOut={() => { document.body.style.cursor = 'auto' }}
+          >
+            <mesh>
+              <boxGeometry args={[0.044, 0.022, 0.008]} />
               <meshStandardMaterial color="#334155" roughness={0.5} />
             </mesh>
             <Text
@@ -366,14 +422,52 @@ export default function BlackBodySource({
               font="/fonts/arial.ttf"
               fontWeight="bold"
             >
-              -10
+              -1
             </Text>
           </group>
 
-          {/* +10 Button */}
+          {/* +1 °C Button */}
           <group
-            position={[0.025, -0.032, 0.004]}
+            position={[0.026, -0.032, 0.004]}
             onClick={(e: ThreeEvent<MouseEvent>) => {
+              e.stopPropagation()
+              setTargetTemp(t => Math.min(maxTemp, Math.round((t + 1) * 10) / 10))
+            }}
+            onPointerDown={(e: ThreeEvent<PointerEvent>) => {
+              e.stopPropagation()
+              setTargetTemp(t => Math.min(maxTemp, Math.round((t + 1) * 10) / 10))
+            }}
+            onPointerOver={(e) => {
+              e.stopPropagation()
+              document.body.style.cursor = 'pointer'
+            }}
+            onPointerOut={() => { document.body.style.cursor = 'auto' }}
+          >
+            <mesh>
+              <boxGeometry args={[0.044, 0.022, 0.008]} />
+              <meshStandardMaterial color="#0284c7" roughness={0.4} />
+            </mesh>
+            <Text
+              position={[0, 0, 0.005]}
+              fontSize={0.008}
+              color="#ffffff"
+              anchorX="center"
+              anchorY="middle"
+              font="/fonts/arial.ttf"
+              fontWeight="bold"
+            >
+              +1
+            </Text>
+          </group>
+
+          {/* +10 °C Button */}
+          <group
+            position={[0.076, -0.032, 0.004]}
+            onClick={(e: ThreeEvent<MouseEvent>) => {
+              e.stopPropagation()
+              setTargetTemp(t => Math.min(maxTemp, Math.round((t + 10) * 10) / 10))
+            }}
+            onPointerDown={(e: ThreeEvent<PointerEvent>) => {
               e.stopPropagation()
               setTargetTemp(t => Math.min(maxTemp, Math.round((t + 10) * 10) / 10))
             }}
@@ -384,49 +478,19 @@ export default function BlackBodySource({
             onPointerOut={() => { document.body.style.cursor = 'auto' }}
           >
             <mesh>
-              <boxGeometry args={[0.044, 0.024, 0.008]} />
-              <meshStandardMaterial color="#334155" roughness={0.5} />
+              <boxGeometry args={[0.044, 0.022, 0.008]} />
+              <meshStandardMaterial color="#0369a1" roughness={0.4} />
             </mesh>
             <Text
               position={[0, 0, 0.005]}
-              fontSize={0.008}
-              color="#ffffff"
+              fontSize={0.0075}
+              color="#38bdf8"
               anchorX="center"
               anchorY="middle"
               font="/fonts/arial.ttf"
               fontWeight="bold"
             >
               +10
-            </Text>
-          </group>
-
-          {/* +100 Button */}
-          <group
-            position={[0.075, -0.032, 0.004]}
-            onClick={(e: ThreeEvent<MouseEvent>) => {
-              e.stopPropagation()
-              setTargetTemp(t => Math.min(maxTemp, Math.round((t + 100) * 10) / 10))
-            }}
-            onPointerOver={(e) => {
-              e.stopPropagation()
-              document.body.style.cursor = 'pointer'
-            }}
-            onPointerOut={() => { document.body.style.cursor = 'auto' }}
-          >
-            <mesh>
-              <boxGeometry args={[0.044, 0.024, 0.008]} />
-              <meshStandardMaterial color="#334155" roughness={0.5} />
-            </mesh>
-            <Text
-              position={[0, 0, 0.005]}
-              fontSize={0.008}
-              color="#ffffff"
-              anchorX="center"
-              anchorY="middle"
-              font="/fonts/arial.ttf"
-              fontWeight="bold"
-            >
-              +100
             </Text>
           </group>
         </group>

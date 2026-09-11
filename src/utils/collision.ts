@@ -11,12 +11,12 @@ export interface AABB {
 
 // Physical obstacles in the laboratory (Tables, Cabinets, Equipment bases)
 export const LAB_OBSTACLES: AABB[] = [
-  // Center Main Table: position=[0, 0.45, -3.8], size=[4.0, 0.9, 1.2]
+  // Center Main Table: position=[0, 0.45, -3.8], size=[4.2, 0.9, 1.2]
   {
     id: 'center-table',
     name: 'Center Main Table',
-    minX: -2.05,
-    maxX: 2.05,
+    minX: -2.15,
+    maxX: 2.15,
     minZ: -4.45,
     maxZ: -3.15
   },
@@ -37,6 +37,33 @@ export const LAB_OBSTACLES: AABB[] = [
     maxX: -2.65,
     minZ: -1.1,
     maxZ: -0.1
+  },
+  // Thunder Scientific 3920 Low Humidity Generation System: position=[-3.85, 0, 2.05]
+  {
+    id: 'thunder-scientific-3920',
+    name: 'Thunder Scientific 3920 Low Frost Point Generator',
+    minX: -4.30,
+    maxX: -3.40,
+    minZ: 1.60,
+    maxZ: 2.50
+  },
+  // Thunder Scientific 2900 Two-Pressure (2P) Generation System: position=[-3.85, 0, 3.45]
+  {
+    id: 'thunder-scientific-2900',
+    name: 'Thunder Scientific 2900 2P Humidity Generator Cart',
+    minX: -4.35,
+    maxX: -3.35,
+    minZ: 2.95,
+    maxZ: 3.95
+  },
+  // Chilled Mirror 2P Reference Instrument Stand: position=[-3.95, 0, 4.40]
+  {
+    id: 'chilled-mirror-2p-stand',
+    name: '2P Chilled Mirror Reference Station Stand',
+    minX: -4.30,
+    maxX: -3.60,
+    minZ: 4.10,
+    maxZ: 4.70
   },
   // Right Equipment Table (Fluke Dry-Well Calibrators & Resistance Bridge): moved to position=[1.8, 0, 2.3], size=[1.9, 0.85, 0.88]
   {

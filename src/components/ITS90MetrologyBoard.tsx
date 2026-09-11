@@ -19,137 +19,139 @@ interface SlideData {
 
 const SLIDES: SlideData[] = [
   {
-    title: '1. PLANCK IŞINIM KURAMI & SPEKTRAL IŞINIKLIK',
-    subtitle: 'Kuantum Fiziğinin Doğuşu ve Termal Radyasyonun Temel İlkeleri',
-    imagePath: '/slides/planck_curves.jpg',
-    imageCaption: 'Spektral Işınım Dağılımı L_λ(T) vs Dalgaboyu (Planck Eğrileri, Wien Kayması & Klasik Çıkmaz)',
-    badge: 'TEMEL KURAM (1900)',
-    badgeColor: '#00f0ff',
-    heading: 'Planck Spektral Işınım Formülasyonu',
-    formulaTitle: 'Planck Işınım Bağıntısı [W / (m² · sr · µm)]',
-    formula: 'L_λ(λ, T) = (2·h·c²) / [ λ⁵ · (e^(h·c / (λ·k_B·T)) - 1) ]',
-    formulaExplanation: 'h: 6.626×10⁻³⁴ J·s (Planck) | c: 3×10⁸ m/s | k_B: 1.381×10⁻²³ J/K (Boltzmann)',
+    title: '1. ITS-90 SICAKLIK ÖLÇEĞİ & SABİT NOKTALAR DİZİLİMİ',
+    subtitle: 'Saf Maddelerin Faz Dengelerine Dayalı Uluslararası Metrolojik Standart',
+    imagePath: '/slides/its90_fixed_points.jpg',
+    imageCaption: 'ITS-90 Tanımlayıcı Sabit Noktalar Skalası (Ar -189.34 °C ile Ag 961.78 °C) ve İzotermal Faz Değişim Platosu',
+    badge: 'ULUSLARARASI ÖLÇEK (ITS-90)',
+    badgeColor: '#38bdf8',
+    heading: 'Saf Metallerin Faz Dengeleri & Donma Platosu',
+    formulaTitle: 'ITS-90 Direnç Oranı W(T₉₀) ve Sabit Nokta Bağıntısı',
+    formula: 'W(T₉₀) = R(T₉₀) / R(TPW)   |   T_donma = Değişmez Faz Denge Sıcaklığı',
+    formulaExplanation: 'T₉₀: ITS-90 sıcaklığı | R(TPW): Suyun Üçlü Noktası referans direnci | Saf metaller %99.9999 (6N saflık)',
     bullets: [
       {
-        label: 'Termal Radyasyonun Tanımı (TÜBİTAK UME Temeli):',
-        text: 'Radyasyon sıcaklığı, bir nesnenin yüzeyinden yayılan termal radyasyonun Planck kuramına göre temassız ölçülmesiyle elde edilen fiziksel büyüklüktür.',
+        label: 'Termodinamik Sıcaklık ve ITS-90 İhtiyacı:',
+        text: 'Mutlak termodinamik sıcaklık (T) doğrudan ölçülmesi son derece güç ve karmaşık bir büyüklüktür. ITS-90, saf elementlerin faz geçişlerini referans alarak dünya çapında tekrarlanabilir pratik bir ölçek sunar.',
         highlight: true,
       },
       {
-        label: 'Klasik Fizik & Morötesi Felaketin Çözümü:',
-        text: 'Klasik Rayleigh-Jeans yasası kısa dalgaboylarında sonsuz ışıma öngörüyordu. Max Planck, enerjinin sürekli değil "h·ν" kuantları halinde yayıldığını ortaya koyarak kuantum fiziğini başlattı.',
+        label: 'Tanımlayıcı Sabit Noktalar (Fixed Points):',
+        text: '• Ar: -189.3442 °C | Hg: -38.8344 °C | TPW: +0.0100 °C (Temel Referans) | Ga: +29.7646 °C\n• In: 156.5985 °C | Sn: 231.928 °C | Zn: 419.527 °C | Al: 660.323 °C | Ag: 961.78 °C.',
       },
       {
-        label: 'Wien Kayma Kanunu (λ_peak · T = 2897.8 µm·K):',
-        text: 'Sıcaklık arttıkça spektrum tepe noktası daha kısa dalgaboylarına kayar. Güneş (~5800 K) 0.5 µm görünür ışıkta, oda sıcaklığı (~300 K) 10 µm LWIR bölgesinde tepe yapar.',
+        label: 'Donma Platosu (Freeze Plateau) Dinamiği:',
+        text: 'Sıvı metal soğurken önce çekirdeklenme için "aşırı soğuma" (supercooling) yapar, ardından gizli füzyon ısısı salınımıyla hızla plato sıcaklığına sıçrar (rekalesans). İki faz dengedeyken sıcaklık saatlerce < 0.1 mK kararlılıkta sabit kalır!',
+        highlight: true,
       },
       {
-        label: 'Stefan-Boltzmann Toplam Güç Yasası (M = σ·T⁴):',
-        text: 'Siyah cismin yaydığı toplam güç Kelvin sıcaklığının 4. kuvvetiyle orantılıdır (σ ≈ 5.670×10⁻⁸ W/m²K⁴). Sıcaklık arttıkça yayılan enerji muazzam bir hızla büyür.',
+        label: 'Önünüzdeki Fırın Dizilimi:',
+        text: 'Laboratuvardaki 9 adet metroloji hücresi ve fırını, tam olarak bu metallerin faz geçişi platolarını oluşturmaktadır. SPRT probunu fırına daldırıp direnç oranını ölçebilirsiniz.',
         highlight: true,
       },
     ],
-    takeaway: 'Özet: Planck kuramı temassız sıcaklık ölçümünün kalbidir. Yüzeyden yayılan ışımanın spektral dağılımı ölçülerek nesnenin mutlak sıcaklığı hesaplanır.',
+    takeaway: 'Özet: ITS-90 sabit noktaları, doğanın değişmez termodinamik faz dengeleridir. Donma süresince sıcaklık dış ortamdan bağımsız olarak mikroderece hassasiyetle sabit kalır.',
   },
   {
-    title: '2. TÜBİTAK UME ULUSAL RADYASYON SICAKLIĞI ÖLÇEĞİ',
-    subtitle: 'Birincil Seviye Metroloji: -80 °C ile 3500 °C Arasında SI İzlenebilirliği',
-    imagePath: '/slides/tubitak_ume_radiation_scale.jpg',
-    imageCaption: 'TÜBİTAK UME Birincil Seviye Siyah Cisim Kalibrasyon Düzeneği ve Yüksek Sıcaklık Sabit Noktaları',
-    badge: 'TÜBİTAK UME BİRİNCİL ÖLÇEK',
+    title: '2. TÜBİTAK UME SICAKLIK LABORATUVARI & BİRİNCİL ALTYAPI',
+    subtitle: 'Ulusal Standartların Oluşturulması, Korunması ve Uluslararası Tanınırlık',
+    imagePath: '/slides/ume_sicaklik_1.jpg',
+    imageCaption: 'TÜBİTAK UME Sıcaklık Laboratuvarı Birincil Seviye ITS-90 Sabit Noktaları, SPRT Kalibrasyon Fırınları ve Sıcaklık Banyoları',
+    badge: 'TÜBİTAK UME BİRİNCİL METROLOJİ',
     badgeColor: '#f59e0b',
-    heading: 'Ulusal Radyasyon Sıcaklığı Ölçeği Realizasyonu',
-    formulaTitle: 'Gümüş Donma Noktası (961.78 °C) Üzerinde Birincil Tanım',
-    formula: 'T_90(Ag) = 961.78 °C   |   Ölçüm Aralığı: -80 °C ile 3500 °C',
-    formulaExplanation: 'ITS-90 & MeP-K tanımlı saf metal ve metal-karbon ötetik faz dönüşüm hücreleri',
+    heading: 'Ulusal Standartlar ve Birincil Seviye Kalibrasyon',
+    formulaTitle: 'BIPM CMC & TS EN ISO/IEC 17025 Akreditasyonu',
+    formula: 'Aralık: -189.3442 °C (Ar) ile 961.78 °C (Ag)   |   Ölçüm Belirsizliği: U < 0.5 mK',
+    formulaExplanation: 'CCT.K7-2021 & EURAMET.T-K9 Uluslararası Karşılaştırmaları ile Küresel Güvenilirlik',
     bullets: [
       {
-        label: 'Birincil Seviye Ulusal Ölçek Misyonu:',
-        text: 'TÜBİTAK UME Radyasyon Sıcaklığı Laboratuvarı, Ulusal Radyasyon Sıcaklığı Ölçeği’ni birincil seviyede kurmakta, korumakta ve gümüş donma noktası (961.78 °C) üzerindeki sıcaklıklarda SI izlenebilirliği sağlamaktadır.',
+        label: 'Ulusal Görev ve SI İzlenebilirlik Zinciri:',
+        text: 'TÜBİTAK UME Sıcaklık Laboratuvarı, SI sisteminde 7 temel büyüklükten biri olan Kelvin’i birincil seviyede oluşturmak ve Türkiye’deki tüm kontak sıcaklık ölçümlerinin uluslararası metroloji sistemine izlenebilirliğini sağlamakla görevlidir.',
         highlight: true,
       },
       {
-        label: 'ITS-90 Sabit Nokta Siyah Cisim Hücreleri:',
-        text: '• Saf Metal Hücreleri: İndiyum (156.6 °C), Kalay (231.9 °C), Çinko (419.5 °C), Alüminyum (660.3 °C), Gümüş (961.78 °C), Altın (1064.18 °C), Bakır (1084.62 °C).',
+        label: 'Birincil Seviye Donanım ve Sistemler:',
+        text: '• Ar üçlü noktasından (-189.34 °C) Ag donma noktasına (961.78 °C) SPRT kalibrasyon sistemi\n• Sn (231.9 °C) ile Co-C ötetik noktası (1325 °C) arasında referans ısılçift kalibrasyon sistemi\n• -196 °C ile 650 °C aralığında endüstriyel termometreler için karşılaştırmalı kalibrasyon düzeneği.',
       },
       {
-        label: 'Metal-Karbon Ötetik Hücreleri (MeP-K Tanımlı, 3000 °C):',
-        text: 'Yüksek sıcaklıklar için laboratuvarda doldurulan Fe-C, Pd-C, Pt-C, Co-C, Ru-C, Re-C, TiC-C ve WC-C ötetik hücreleri ile 3000 °C\'ye kadar birincil kalibrasyon imkanı sunulur.',
+        label: 'Yerli Hücre & Cihaz Yapımı Yetkinliği:',
+        text: 'UME, primer ITS-90 sabit noktalarını, yüksek sıcaklık metal-karbon ötetik hücrelerini (Co-C) ve cıva yerine çevreci alternatif olarak geliştirilen SF₆ ve CO₂ üçlü nokta hücrelerini kendi bünyesinde üretmektedir.',
         highlight: true,
       },
       {
-        label: 'Uluslararası Projeler & Teknik Komiteler:',
-        text: 'MultiFixRad (2023-2026: Çoklu Sabit Noktalı Radyasyon Termometrisi), Real-K (2019-2023: Yeniden Tanımlanan Kelvin), InK / InK-2; BIPM CCT, EURAMET, COOMET ve SMIIC üyelikleri.',
+        label: 'Uluslararası Başarılar & Karşılaştırmalar:',
+        text: '25 yılı aşkın süredir BIPM CCT ve EURAMET uluslararası karşılaştırmalarında (CCT.K7, EURAMET.T-K9) elde edilen mükemmel sonuçlarla ulusal sanayi, savunma ve sağlık kurumlarına en yüksek doğrulukta izlenebilirlik sunar.',
       },
     ],
-    takeaway: 'Özet: TÜBİTAK UME, -80 °C\'den 3500 °C\'ye kadar sabit nokta hücreleri ve referans siyah cisimlerle Türkiye\'nin ulusal izlenebilirlik zincirini güvenceye alır.',
+    takeaway: 'Özet: TÜBİTAK UME, Türkiye\'nin sıcaklık ölçüm güvenilirliğinin garantisidir. Laboratuvarımızda üretilen primer referans hücreler dünya metroloji liginde ülkemizi temsil eder.',
   },
   {
-    title: '3. PİROMETRE & TERMAL KAMERA KALİBRASYON DÜZENEKLERİ',
-    subtitle: 'Ters Planck Çözümlemesi, Optik Parametreler ve Metroloji Altyapısı',
-    imagePath: '/slides/pyrometer_guide.jpg',
-    imageCaption: 'Optik Pirometre Ölçüm Geometrisi: Objektif Lens, Spektral Filtre, Dedektör ve Siyah Cisim Kavitesi',
-    badge: 'KALİBRASYON & ENSTRÜMANTASYON',
+    title: '3. SUYUN ÜÇLÜ NOKTASI (TPW) & KELVİN\'İN YENİ TANIMI (AGT)',
+    subtitle: 'Metrolojinin Kalbi: Katı, Sıvı ve Buharın Mutlak Dengesi & 2019 SI Devrimi',
+    imagePath: '/slides/tpw_cell_kelvin.jpg',
+    imageCaption: 'Borosilikat TPW Hücresi Kesiti (Buz Mantosu, İç Erime Katmanı, SPRT Kuyusu) ve Boltzmann Sabiti (k_B) ile AGT Sistemi',
+    badge: 'SI KELVİN & AKUSTİK GAZ TERMOMETRİSİ',
+    badgeColor: '#a855f7',
+    heading: '2019 SI Kelvin Devrimi & Akustik Gaz Termometresi',
+    formulaTitle: 'Boltzmann Sabiti ile Termodinamik Enerji Eşitliği',
+    formula: 'E = k_B · T   |   k_B = 1.380649 × 10⁻²³ J/K (Sabit)   |   T_TPW = 273.16 K = +0.0100 °C',
+    formulaExplanation: 'Kelvin materyalden bağımsız Enerji SI birimine (kg·m²·s⁻²) bağlanmıştır | AGT: Akustik Gaz Termometresi',
+    bullets: [
+      {
+        label: '20 Mayıs 2019 SI Kelvin Yeniden Tanımı:',
+        text: 'Kelvin, tarihsel olarak TPW hücresinin 1/273.16\'sına bağımlıydı. 2019\'da Boltzmann sabiti (k_B) tam sayıya sabitlenerek Kelvin herhangi bir maddeye bağlı olmaksızın doğrudan mikroskobik termal enerjiye bağlandı.',
+        highlight: true,
+      },
+      {
+        label: 'Akustik Gaz Termometresi (AGT) Sistemi:',
+        text: 'TÜBİTAK UME, yeni Kelvin tanımının birincil seviyede gerçekleştirilmesinde dünyadaki en üstün yöntem olan AGT sistemini ülkemize kazandırmış ve uluslararası EMPIR Direk-T (Dissemination of the redefined kelvin) projesinde yer almıştır.',
+        highlight: true,
+      },
+      {
+        label: 'Suyun Üçlü Noktası (TPW) Hücresi:',
+        text: 'Borosilikat cam tüp içinde VSMOW izotopik arı suyun katı, sıvı ve gaz fazları 611.657 Pa basınçta bir arada bulunur. İç kuyu etrafında dondurulan buz mantosu ve ince "iç erime" (inner melt) serbest su katmanı ile < 0.05 mK belirsizlik sağlanır.',
+      },
+      {
+        label: 'Direnç Metrolojisinde W Oranı:',
+        text: 'Tüm SPRT ve direnç termometreleri, direnç oranlarını W(T) = R(T) / R(TPW) şeklinde bağıl olarak hesaplayabilmek için periyodik olarak TPW hücresinde kalibre edilir ve sıfırlanır.',
+        highlight: true,
+      },
+    ],
+    takeaway: 'Özet: Yeni SI sisteminde Kelvin, Boltzmann sabiti ile tanımlanır. UME\'nin kurduğu Akustik Gaz Termometresi (AGT) ve TPW hücreleri bu tanımı nanokelvin seviyesinde hayata geçirir.',
+  },
+  {
+    title: '4. SPRT & 4 TELLİ AC DİRENÇ KÖPRÜSÜ ÇALIŞMA PRENSİBİ',
+    subtitle: 'Standart Platin Direnç Termometrisi ve Yüksek Doğruluklu Enstrümantasyon',
+    imagePath: '/slides/sprt_bridge_principle.jpg',
+    imageCaption: 'Kuvars Kılıflı Gerilmesiz SPRT Sensörü ve 4 Telli Kelvin Bağlantılı AC Direnç Köprüsü Devre Şeması',
+    badge: 'ENSTRÜMANTASYON & FLUKEN 1594A',
     badgeColor: '#10b981',
-    heading: 'Optik Ölçüm Parametreleri ve Ters Planck Bağıntısı',
-    formulaTitle: 'Ters Planck Denklemi ile Sıcaklık Çözümlemesi',
-    formula: 'T = c₂ / [ λ · ln( 1 + (ε_eff · c₁) / (λ⁵ · L_ölçülen) ) ]',
-    formulaExplanation: 'c₁ = 3.7418×10⁻¹⁶ W·m²  |  c₂ = 1.4388×10⁻² m·K  |  ε_eff ≥ 0.998 (Kavite Emissivitesi)',
+    heading: 'SPRT Karakteristiği ve 4 Telli AC Direnç Köprüsü',
+    formulaTitle: 'W(T₉₀) Direnç Oranı ve 4 Telli Kelvin Potansiyel Okuması',
+    formula: 'W(T₉₀) = R(T₉₀) / R_TPW   |   V_sense = I · R_sensör (Kablo Hatası = 0)',
+    formulaExplanation: 'α_platin ≥ 0.003926 °C⁻¹ (Saf platin saflık kriteri: W(Ga) ≥ 1.11807 veya W(Hg) ≤ 0.84414)',
     bullets: [
       {
-        label: 'Gelişmiş Laboratuvar Test Düzenekleri:',
-        text: '• Tayfsal Tepki Ölçüm Düzeneği: 300 nm – 1100 nm aralığı\n• Doğrusallık (Linearity) Düzeneği: Görünür ve yakın kızılötesi dalgaboyları\n• Kararlı Lambalar Kalibrasyon Düzeneği: 700 °C – 2200 °C aralığı.',
+        label: 'SPRT (Standard Platinum Resistance Thermometer):',
+        text: '-189 °C ile +962 °C arasında ITS-90\'ın resmi interpolasyon cihazıdır. %99.9999 saflıkta platin tel, termal genleşmelerden gerilme görmemesi için kuvars haç üzerine gerilmesiz (strain-free) sarılır.',
         highlight: true,
       },
       {
-        label: 'Kaynak Büyüklüğü Etkisi (SSE - Size-of-Source Effect):',
-        text: 'Lens içi yansımalar ve optik saçılma nedeniyle dedektöre hedefin dışından giren kaçak ışık karakterize edilerek SSE ölçüm düzeneğiyle düzeltilir.',
-      },
-      {
-        label: 'Dedektör Dalgaboyu Bantları ve Cihaz Tasarımları:',
-        text: 'TÜBİTAK UME cihaz yapımı kabiliyeti:\n• 150 °C – 1000 °C ve 650 °C – 1600 °C radyasyon termometreleri\n• 1000 °C – 2500 °C dar bantlı radyasyon termometreleri (0.9 µm Si / 1.6 µm InGaAs).',
-      },
-      {
-        label: 'Laboratuvarda Ölçüm Alma:',
-        text: 'Masanın üzerindeki 4 pirometreden birini elinize alıp siyah cisim fırınına yöneltin ve tetiğe basın! Pirometre foton akısını okuyarak bu formülle sıcaklığı hesaplar.',
+        label: '4 Telli (4-Wire Kelvin) Bağlantı İlkesi:',
+        text: 'İki telden akım döngüsü (I+, I-) geçirilirken, ayrı iki yüksek empedanslı potansiyel teli (V+, V-) yalnızca sensör üzerindeki voltaj düşümünü okur. Böylece metrelerce uzunluktaki kabloların iç direnci ölçüme sıfır etki eder.',
         highlight: true,
+      },
+      {
+        label: 'AC Direnç Köprüsü & Seebeck EMF Eliminasyonu:',
+        text: 'Masanın üzerindeki Fluke 1594A Super-Thermometer köprüsü gibi sistemler, akım yönünü periyodik tersleyerek (AC modu) bağlantı noktalarındaki parazitik ısıl gerilimleri (termoelektrik EMF) bütünüyle yok eder.',
+        highlight: true,
+      },
+      {
+        label: 'Öz-Isınma (Self-Heating) Düzeltmesi:',
+        text: 'Ölçüm akımı (1 mA ve 1.414 mA) sensörde mikroderece mertebesinde ısınmaya yol açar. Köprü iki akımla okuma yaparak sıfır akıma ekstrapolasyon uygular ve hatayı tamamen ortadan kaldırır.',
       },
     ],
-    takeaway: 'Özet: Doğru radyasyon sıcaklığı ölçümü; odaklama geometrisi, SSE düzeltmesi, tayfsal doğrusallık ve yüksek kavite emissivitesinin (ε ≥ 0.998) bileşimidir.',
-  },
-  {
-    title: '4. ENDÜSTRİYEL, SAVUNMA VE TIBBİ METROLOJİ UYGULAMALARI',
-    subtitle: 'Ağır Sanayiden Sağlık Sektörüne ve İklim Değişikliği İzlemesine Uzanan Alanlar',
-    imagePath: '/slides/scientists.jpg',
-    imageCaption: 'TÜBİTAK UME Radyasyon Sıcaklığı Uygulama Alanları: Sanayi Fırınları, Savunma Kızılötesi Sistemleri ve Tıbbi Metroloji',
-    badge: 'UYGULAMA ALANLARI & TOPLUM',
-    badgeColor: '#8b5cf6',
-    heading: 'Temassız Sıcaklık Ölçümünün Hayati Rolü',
-    formulaTitle: 'Metrolojik Çevre Şartları & Güvenilirlik Standartları',
-    formula: 'T_ortam = (21.0 ± 3.0) °C   |   Bağıl Nem = (45 ± 15) % rh',
-    formulaExplanation: 'İzlenebilir kalibrasyon sertifikaları TÜBİTAK UME laboratuvar şartlarında verilir.',
-    bullets: [
-      {
-        label: 'Ağır Sanayi & Üretim Optimizasyonu:',
-        text: 'Eriyik metaller, cam üretimi, çimento fırınları, petrokimya ve kağıt sanayisi gibi temaslı sensörlerin eridiği veya ulaşılamadığı tehlikeli ortamlarda güvenli süreç kontrolü sağlar.',
-        highlight: true,
-      },
-      {
-        label: 'Tıbbi Metroloji & Salgın Hastalık Tespiti:',
-        text: 'COVID-19 sürecinde önemi katlanan temassız alın/deri termometreleri ve termal kameraların (in-vivo) vücut ateşi ölçümlerinde güvenilirlik TÜBİTAK UME kalibrasyonlarıyla temin edilir.',
-        highlight: true,
-      },
-      {
-        label: 'Savunma Sanayii & Kızılötesi Hedef Tespiti:',
-        text: 'Uzak ve hareketli nesnelerin termal ışıma imzalarının (IR signature) tespit edilmesi, güdüm sistemleri ve termal görüş cihazlarının kalibrasyonunda kritik öneme sahiptir.',
-      },
-      {
-        label: 'Çevre, İklim Değişikliği & Uydu Metrolojisi:',
-        text: 'Toprak, göl ve deniz yüzey sıcaklıklarının (SST) uydu tabanlı radyometrelerle uzaktan izlenmesinde referans radyasyon sıcaklığı standartları kullanılır.',
-        highlight: true,
-      },
-    ],
-    takeaway: 'Özet: Çelik ergitme fırınlarından pandemi ateş taramasına ve iklim uydularına kadar temassız sıcaklık ölçümü modern dünyanın vazgeçilmezidir.',
+    takeaway: 'Özet: 4 telli Kelvin bağlantısı kablo kayıplarını sıfırlar, AC köprü ısıl voltajları eler, SPRT ise temaslı sıcaklık ölçümünde dünyanın en yüksek doğruluğunu sunar.',
   },
 ]
 
@@ -165,15 +167,15 @@ function SlideImageMesh({ imagePath }: { imagePath: string }) {
   )
 }
 
-interface RadiationPhysicsBoardProps {
+interface ITS90MetrologyBoardProps {
   position?: [number, number, number]
   rotation?: [number, number, number]
 }
 
-export default function RadiationPhysicsBoard({
-  position = [0, 2.45, -4.82],
-  rotation = [0, 0, 0],
-}: RadiationPhysicsBoardProps) {
+export default function ITS90MetrologyBoard({
+  position = [7.08, 2.45, 2.60],
+  rotation = [0, -Math.PI / 2, 0],
+}: ITS90MetrologyBoardProps) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
   const [hoveredButton, setHoveredButton] = useState<string | null>(null)
 
@@ -219,42 +221,42 @@ export default function RadiationPhysicsBoard({
         <meshBasicMaterial color="#111827" />
       </mesh>
 
-      {/* TÜBİTAK / PTB Metrology Badge */}
+      {/* TÜBİTAK / BIPM Metrology Badge */}
       <mesh position={[-1.95, 1.06, 0.008]}>
-        <planeGeometry args={[1.0, 0.07]} />
-        <meshBasicMaterial color="#1e3a8a" />
+        <planeGeometry args={[1.05, 0.07]} />
+        <meshBasicMaterial color="#065f46" />
       </mesh>
       <Text
         position={[-1.95, 1.06, 0.01]}
-        fontSize={0.032}
-        color="#93c5fd"
+        fontSize={0.030}
+        color="#a7f3d0"
         anchorX="center"
         anchorY="middle"
         font="/fonts/arial.ttf"
       >
-        METROLOJİ & EĞİTİM MODÜLÜ
+        TÜBİTAK UME / BIPM METROLOJİ
       </Text>
 
       {/* Main Title */}
       <Text
-        position={[0, 1.06, 0.01]}
-        fontSize={0.065}
+        position={[0.08, 1.06, 0.01]}
+        fontSize={0.062}
         color="#ffffff"
         anchorX="center"
         anchorY="middle"
         font="/fonts/arial.ttf"
       >
-        RADYASYON VE SICAKLIK METROLOJİSİ EĞİTİM PANOSU
+        ITS-90 SICAKLIK ÖLÇEĞİ & SPRT DİRENÇ METROLOJİSİ
       </Text>
 
       {/* Slide Badge on Top Right */}
       <mesh position={[2.0, 1.06, 0.008]}>
-        <planeGeometry args={[0.85, 0.07]} />
+        <planeGeometry args={[0.92, 0.07]} />
         <meshBasicMaterial color={activeSlide.badgeColor} />
       </mesh>
       <Text
         position={[2.0, 1.06, 0.01]}
-        fontSize={0.032}
+        fontSize={0.030}
         color="#000000"
         anchorX="center"
         anchorY="middle"
@@ -290,11 +292,11 @@ export default function RadiationPhysicsBoard({
         const posX = (idx - 1.5) * 1.25
         const posY = 0.76
 
-        const tabTitles = [
-          '1. Planck Kuramı',
-          '2. UME Birincil Ölçeği',
-          '3. Pirometre Kalibrasyonu',
-          '4. Endüstri & Tıp'
+        const tabLabels = [
+          '1. ITS-90 & Sabit Noktalar',
+          '2. UME Sıcaklık Lab.',
+          '3. TPW & Kelvin (AGT)',
+          '4. SPRT & Direnç Köprüsü'
         ]
 
         return (
@@ -322,8 +324,8 @@ export default function RadiationPhysicsBoard({
                   isSelected
                     ? '#0284c7'
                     : hoveredButton === `tab-${idx}`
-                    ? '#334155'
-                    : '#1e293b'
+                      ? '#334155'
+                      : '#1e293b'
                 }
               />
             </mesh>
@@ -342,7 +344,7 @@ export default function RadiationPhysicsBoard({
               anchorY="middle"
               font="/fonts/arial.ttf"
             >
-              {tabTitles[idx] || `Slayt ${idx + 1}`}
+              {tabLabels[idx]}
             </Text>
           </group>
         )
@@ -375,7 +377,7 @@ export default function RadiationPhysicsBoard({
               anchorY="middle"
               font="/fonts/arial.ttf"
             >
-              Görsel Yükleniyor...
+              Sabırlı olunuz... Görsel Yükleniyor...
             </Text>
           }
         >
@@ -389,7 +391,7 @@ export default function RadiationPhysicsBoard({
         </mesh>
         <Text
           position={[0, -0.70, 0.025]}
-          fontSize={0.030}
+          fontSize={0.029}
           color="#e2e8f0"
           anchorX="center"
           anchorY="middle"
@@ -429,7 +431,7 @@ export default function RadiationPhysicsBoard({
         </mesh>
         <mesh position={[0, 0.54, 0.004]}>
           <planeGeometry args={[2.30, 0.21]} />
-          <meshBasicMaterial color="#2563eb" />
+          <meshBasicMaterial color="#0284c7" />
         </mesh>
 
         <Text
@@ -445,7 +447,7 @@ export default function RadiationPhysicsBoard({
 
         <Text
           position={[0, 0.53, 0.008]}
-          fontSize={0.040}
+          fontSize={0.038}
           color="#38bdf8"
           anchorX="center"
           anchorY="middle"
@@ -468,7 +470,6 @@ export default function RadiationPhysicsBoard({
         {/* Bullet Points Container */}
         <group position={[-1.12, 0.36, 0.005]}>
           {activeSlide.bullets.map((b, i) => {
-            // Dynamic vertical position for bullet items
             const itemY = -i * 0.165
             return (
               <group key={`bullet-${i}`} position={[0, itemY, 0]}>
@@ -511,16 +512,16 @@ export default function RadiationPhysicsBoard({
         {/* Bottom Key Takeaway Callout Box */}
         <mesh position={[0, -0.68, 0.005]}>
           <planeGeometry args={[2.28, 0.12]} />
-          <meshBasicMaterial color="#1e1b4b" />
+          <meshBasicMaterial color="#064e3b" />
         </mesh>
         <mesh position={[-1.13, -0.68, 0.007]}>
           <planeGeometry args={[0.02, 0.12]} />
-          <meshBasicMaterial color="#818cf8" />
+          <meshBasicMaterial color="#34d399" />
         </mesh>
         <Text
           position={[-1.09, -0.68, 0.008]}
           fontSize={0.028}
-          color="#c7d2fe"
+          color="#d1fae5"
           anchorX="left"
           anchorY="middle"
           maxWidth={2.18}
@@ -604,8 +605,8 @@ export default function RadiationPhysicsBoard({
                       isCurrent
                         ? '#0284c7'
                         : hoveredButton === `dot-${i}`
-                        ? '#475569'
-                        : '#1e293b'
+                          ? '#475569'
+                          : '#1e293b'
                     }
                   />
                 </mesh>

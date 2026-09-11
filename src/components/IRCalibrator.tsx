@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { Text } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
@@ -26,6 +26,8 @@ export default function IRCalibrator({
   setCurrentTemp
 }: IRCalibratorProps) {
 
+  const targetDiscRef = useRef<THREE.Mesh>(null)
+
   useFrame((_, delta) => {
     if (Math.abs(currentTemp - targetTemp) > 0.01) {
       const isHeating = targetTemp > currentTemp
@@ -34,6 +36,14 @@ export default function IRCalibrator({
       const diff = Math.abs(targetTemp - currentTemp)
       const direction = isHeating ? 1 : -1
       setCurrentTemp(t => t + direction * Math.min(diff, step))
+    }
+
+    if (targetDiscRef.current) {
+      targetDiscRef.current.userData.temperature = currentTemp
+      targetDiscRef.current.userData.currentTemp = currentTemp
+      targetDiscRef.current.userData.isIRCalibrator = true
+      targetDiscRef.current.userData.isApertureCenter = true
+      targetDiscRef.current.userData.sourceName = 'Düzlemsel IR Kalibratör'
     }
   })
 
@@ -56,7 +66,7 @@ export default function IRCalibrator({
   const intensity = currentTemp > 200 ? Math.min((currentTemp - 200) / 100, 2) : 0
 
   return (
-    <group position={position} rotation={rotation}>
+    <group position={position} rotation={rotation} userData={{ isIRCalibrator: true, temperature: currentTemp, currentTemp, sourceName: 'Düzlemsel IR Kalibratör' }}>
       <group>
         <group position={[0, 0, 0]}>
 
@@ -98,7 +108,10 @@ export default function IRCalibrator({
           </mesh>
 
           {/* Cavity Inner Surface (Glowing) */}
-          <mesh position={[0, 0.3, 0.127]} userData={{ temperature: currentTemp, isIRCalibrator: true }}>
+          <mesh
+            position={[0, 0.3, 0.127]}
+            userData={{ temperature: currentTemp, currentTemp, isIRCalibrator: true, sourceName: 'Düzlemsel IR Kalibratör' }}
+          >
             <circleGeometry args={[0.059, 32]} />
             <meshStandardMaterial
               color={glowColor}
@@ -106,6 +119,16 @@ export default function IRCalibrator({
               emissiveIntensity={intensity}
               roughness={0.9}
             />
+          </mesh>
+
+          {/* Expanded Raycast Target Plate for Pyrometers / Cameras */}
+          <mesh
+            ref={targetDiscRef}
+            position={[0, 0.3, 0.134]}
+            userData={{ temperature: currentTemp, currentTemp, isIRCalibrator: true, isApertureCenter: true, sourceName: 'Düzlemsel IR Kalibratör' }}
+          >
+            <circleGeometry args={[0.11, 32]} />
+            <meshBasicMaterial transparent opacity={0.001} depthWrite={false} side={THREE.DoubleSide} />
           </mesh>
 
           {/* Ring */}
@@ -173,33 +196,53 @@ export default function IRCalibrator({
               {Math.abs(targetTemp - currentTemp) > 0.1 ? 'HEAT: ON' : 'HEAT: OFF'}
             </Text>
 
-            {/* Up (+10) Button */}
-            <mesh position={[0.085, 0.018, 0.001]} onPointerDown={(e: ThreeEvent<PointerEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.min(maxTemp, t + 10)) }}>
-              <planeGeometry args={[0.03, 0.02]} />
-              <meshStandardMaterial color="#888888" />
+            {/* Up (+1 °C) Button */}
+            <mesh
+              position={[0.085, 0.018, 0.001]}
+              onClick={(e: ThreeEvent<MouseEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.min(maxTemp, Math.round((t + 1) * 10) / 10)) }}
+              onPointerDown={(e: ThreeEvent<PointerEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.min(maxTemp, Math.round((t + 1) * 10) / 10)) }}
+            >
+              <planeGeometry args={[0.035, 0.022]} />
+              <meshStandardMaterial color="#0284c7" />
             </mesh>
-            <Text position={[0.085, 0.018, 0.002]} fontSize={0.01} color="#ffffff" anchorX="center" anchorY="middle">▲</Text>
+            <Text position={[0.085, 0.018, 0.002]} fontSize={0.0085} color="#ffffff" anchorX="center" anchorY="middle" fontWeight="bold">
+              +1°
+            </Text>
 
             {/* Left (-0.1) Button */}
-            <mesh position={[0.07, -0.003, 0.001]} onPointerDown={(e: ThreeEvent<PointerEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.max(minTemp, Math.round((t - 0.1) * 10) / 10)) }}>
-              <planeGeometry args={[0.02, 0.015]} />
-              <meshStandardMaterial color="#888888" />
+            <mesh
+              position={[0.068, -0.003, 0.001]}
+              onClick={(e: ThreeEvent<MouseEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.max(minTemp, Math.round((t - 0.1) * 10) / 10)) }}
+              onPointerDown={(e: ThreeEvent<PointerEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.max(minTemp, Math.round((t - 0.1) * 10) / 10)) }}
+            >
+              <planeGeometry args={[0.022, 0.016]} />
+              <meshStandardMaterial color="#475569" />
             </mesh>
-            <Text position={[0.07, -0.003, 0.002]} fontSize={0.008} color="#ffffff" anchorX="center" anchorY="middle">◀</Text>
+            <Text position={[0.068, -0.003, 0.002]} fontSize={0.007} color="#ffffff" anchorX="center" anchorY="middle">◀</Text>
 
             {/* Right (+0.1) Button */}
-            <mesh position={[0.1, -0.003, 0.001]} onPointerDown={(e: ThreeEvent<PointerEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.min(maxTemp, Math.round((t + 0.1) * 10) / 10)) }}>
-              <planeGeometry args={[0.02, 0.015]} />
-              <meshStandardMaterial color="#888888" />
+            <mesh
+              position={[0.102, -0.003, 0.001]}
+              onClick={(e: ThreeEvent<MouseEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.min(maxTemp, Math.round((t + 0.1) * 10) / 10)) }}
+              onPointerDown={(e: ThreeEvent<PointerEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.min(maxTemp, Math.round((t + 0.1) * 10) / 10)) }}
+            >
+              <planeGeometry args={[0.022, 0.016]} />
+              <meshStandardMaterial color="#475569" />
             </mesh>
-            <Text position={[0.1, -0.003, 0.002]} fontSize={0.008} color="#ffffff" anchorX="center" anchorY="middle">▶</Text>
+            <Text position={[0.102, -0.003, 0.002]} fontSize={0.007} color="#ffffff" anchorX="center" anchorY="middle">▶</Text>
 
-            {/* Down (-10) Button */}
-            <mesh position={[0.085, -0.022, 0.001]} onPointerDown={(e: ThreeEvent<PointerEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.max(minTemp, t - 10)) }}>
-              <planeGeometry args={[0.03, 0.02]} />
-              <meshStandardMaterial color="#888888" />
+            {/* Down (-1 °C) Button */}
+            <mesh
+              position={[0.085, -0.024, 0.001]}
+              onClick={(e: ThreeEvent<MouseEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.max(minTemp, Math.round((t - 1) * 10) / 10)) }}
+              onPointerDown={(e: ThreeEvent<PointerEvent>) => { e.stopPropagation(); setTargetTemp(t => Math.max(minTemp, Math.round((t - 1) * 10) / 10)) }}
+            >
+              <planeGeometry args={[0.035, 0.022]} />
+              <meshStandardMaterial color="#334155" />
             </mesh>
-            <Text position={[0.085, -0.022, 0.002]} fontSize={0.01} color="#ffffff" anchorX="center" anchorY="middle">▼</Text>
+            <Text position={[0.085, -0.024, 0.002]} fontSize={0.0085} color="#ffffff" anchorX="center" anchorY="middle" fontWeight="bold">
+              -1°
+            </Text>
           </group>
 
         </group>

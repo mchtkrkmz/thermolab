@@ -7,7 +7,7 @@ import QuartzSPRT from './QuartzSPRT'
 export interface FixedPointFurnaceProps {
   position: [number, number, number]
   rotation?: [number, number, number]
-  modelName: string // e.g. "MK_In", "MK_Sn", "MK_Zn", "MK_Al", "MK_Ag"
+  modelName: string // e.g. "_In", "_Sn", "_Zn", "_Al", "_Ag"
   elementName: string // e.g. "Indium (İndiyum)", "Tin (Kalay)"
   elementSymbol: string // "In", "Sn", "Zn", "Al", "Ag"
   fixedPointTemp: number // e.g. 156.5985
@@ -334,7 +334,7 @@ function FixedPointFurnace({
             font="/fonts/arial.ttf"
             fontWeight="bold"
           >
-            mchtkrkmz
+            G1TD
           </Text>
 
           <Text
@@ -495,7 +495,7 @@ function FixedPointFurnace({
             font="/fonts/arial.ttf"
           >
             {isOn
-              ? (isProbeInPreheat ? 'PRE-HEAT STAGE ACTIVE' : 'STABILITY: ±0.2 mK')
+              ? (isProbeInPreheat ? 'PRE-HEAT STAGE ACTIVE' : 'STABILITY: ±0.2 ')
               : 'HEATER DISENGAGED'}
           </Text>
 
@@ -548,7 +548,7 @@ function FixedPointFurnace({
             font="/fonts/arial.ttf"
             fontWeight="bold"
           >
-            POWER
+            Güç
           </Text>
         </group>
 

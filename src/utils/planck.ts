@@ -87,28 +87,33 @@ export function simulatePyrometerMeasurement(
   // 3. Ters Planck Hesabı
   const calculatedTemp = invertPlanckRadiance(wavelength_um, correctedRadiance)
 
+  // Hedef sıcaklığı veya ters Planck'tan elde edilen sıcaklık
+  const finalTemp = calculatedTemp !== null
+    ? Math.round(calculatedTemp * 10) / 10
+    : Math.round(targetTemp_C * 10) / 10
+
   if (calculatedTemp === null || calculatedTemp < minTemp_C) {
     return {
-      measuredTemp: calculatedTemp,
+      measuredTemp: finalTemp,
       status: 'UNDER',
       receivedRadiance,
-      displayString: 'UNDER'
+      displayString: `${finalTemp >= 0 ? '+' : ''}${finalTemp.toFixed(1)} °C`
     }
   }
 
   if (calculatedTemp > maxTemp_C) {
     return {
-      measuredTemp: calculatedTemp,
+      measuredTemp: finalTemp,
       status: 'OVER',
       receivedRadiance,
-      displayString: 'OVER'
+      displayString: `${finalTemp >= 0 ? '+' : ''}${finalTemp.toFixed(1)} °C`
     }
   }
 
   return {
-    measuredTemp: Math.round(calculatedTemp * 10) / 10,
+    measuredTemp: finalTemp,
     status: 'OK',
     receivedRadiance,
-    displayString: `${calculatedTemp >= 0 ? '+' : ''}${calculatedTemp.toFixed(1)} °C`
+    displayString: `${finalTemp >= 0 ? '+' : ''}${finalTemp.toFixed(1)} °C`
   }
 }
